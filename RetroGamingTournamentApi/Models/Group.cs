@@ -1,0 +1,14 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RetroGamingTournament.Models
+{
+    public class Group
+    {
+        public int Id { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; }
+        public int NumberOfGroupContestants { get; set; }
+
+    }
+}
