@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using RetroGamingTournament.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -9,6 +12,12 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });
+});
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
+
 });
 
 // Add services to the container.
