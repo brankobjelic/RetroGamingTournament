@@ -5,9 +5,9 @@ namespace RetroGamingTournament.Models
     public class Game
     {
         public int Id { get; set; }
-        [Required]
         [StringLength(100)]
+        [Required]
         public string Name { get; set; }
-        public string Banner { get; set; }
+        public string? Banner { get; set; }
     }
 }

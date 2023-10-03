@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RetroGamingTournament.Models;
 
@@ -11,9 +12,10 @@ using RetroGamingTournament.Models;
 namespace RetroGamingTournament.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231003182521_initial2")]
+    partial class initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,6 +184,9 @@ namespace RetroGamingTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -191,6 +196,8 @@ namespace RetroGamingTournament.Migrations
                         .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Players");
 
@@ -305,34 +312,6 @@ namespace RetroGamingTournament.Migrations
                     b.ToTable("Tournaments");
                 });
 
-            modelBuilder.Entity("RetroGamingTournament.Models.TournamentPlayer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("TournamentId");
-
-                    b.ToTable("TournamentPlayer");
-                });
-
             modelBuilder.Entity("StageTournament", b =>
                 {
                     b.Property<int>("TournamentStagesId")
@@ -427,6 +406,13 @@ namespace RetroGamingTournament.Migrations
                     b.Navigation("Player");
                 });
 
+            modelBuilder.Entity("RetroGamingTournament.Models.Player", b =>
+                {
+                    b.HasOne("RetroGamingTournament.Models.Group", null)
+                        .WithMany("GroupPlayers")
+                        .HasForeignKey("GroupId");
+                });
+
             modelBuilder.Entity("RetroGamingTournament.Models.Tournament", b =>
                 {
                     b.HasOne("RetroGamingTournament.Models.Game", "Game")
@@ -436,31 +422,6 @@ namespace RetroGamingTournament.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("RetroGamingTournament.Models.TournamentPlayer", b =>
-                {
-                    b.HasOne("RetroGamingTournament.Models.Group", "Group")
-                        .WithMany("GroupPlayers")
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("RetroGamingTournament.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RetroGamingTournament.Models.Tournament", "Tournament")
-                        .WithMany()
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Player");
-
-                    b.Navigation("Tournament");
                 });
 
             modelBuilder.Entity("StageTournament", b =>

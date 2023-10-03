@@ -12,8 +12,8 @@ using RetroGamingTournament.Models;
 namespace RetroGamingTournament.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231002232914_initialMigration")]
-    partial class initialMigration
+    [Migration("20231003180510_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,6 @@ namespace RetroGamingTournament.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Banner")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -44,6 +43,18 @@ namespace RetroGamingTournament.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mortal Kombat 2"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Mortal Kombat 3"
+                        });
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Group", b =>
@@ -62,7 +73,7 @@ namespace RetroGamingTournament.Migrations
                     b.Property<int>("NumberOfGroupContestants")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TournamentId")
+                    b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -70,6 +81,32 @@ namespace RetroGamingTournament.Migrations
                     b.HasIndex("TournamentId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("RetroGamingTournament.Models.GroupScore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("GroupScores");
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Match", b =>
@@ -132,6 +169,9 @@ namespace RetroGamingTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -145,9 +185,85 @@ namespace RetroGamingTournament.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("TournamentId");
 
                     b.ToTable("Players");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Boris"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Bran"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Krsh"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            Name = "Broox"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            Name = "Peka"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            Name = "Dule"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsActive = true,
+                            Name = "Saka"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            Name = "Milan"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsActive = true,
+                            Name = "Bole"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsActive = true,
+                            Name = "Miki"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsActive = true,
+                            Name = "Rada"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsActive = true,
+                            Name = "Laush"
+                        });
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Stage", b =>
@@ -193,9 +309,32 @@ namespace RetroGamingTournament.Migrations
 
             modelBuilder.Entity("RetroGamingTournament.Models.Group", b =>
                 {
-                    b.HasOne("RetroGamingTournament.Models.Tournament", null)
+                    b.HasOne("RetroGamingTournament.Models.Tournament", "Tournament")
                         .WithMany("TournamentGroups")
-                        .HasForeignKey("TournamentId");
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("RetroGamingTournament.Models.GroupScore", b =>
+                {
+                    b.HasOne("RetroGamingTournament.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetroGamingTournament.Models.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Match", b =>
@@ -234,6 +373,10 @@ namespace RetroGamingTournament.Migrations
 
             modelBuilder.Entity("RetroGamingTournament.Models.Player", b =>
                 {
+                    b.HasOne("RetroGamingTournament.Models.Group", null)
+                        .WithMany("GroupPlayers")
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("RetroGamingTournament.Models.Tournament", null)
                         .WithMany("TournamentPlayers")
                         .HasForeignKey("TournamentId");
@@ -255,6 +398,11 @@ namespace RetroGamingTournament.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("RetroGamingTournament.Models.Group", b =>
+                {
+                    b.Navigation("GroupPlayers");
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Tournament", b =>

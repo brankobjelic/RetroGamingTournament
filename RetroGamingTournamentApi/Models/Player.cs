@@ -5,9 +5,11 @@ namespace RetroGamingTournament.Models
     public class Player
     {
         public int Id { get; set; }
-        [Required]
         [StringLength(5, MinimumLength = 2)]
+        [Required]
         public string Name { get; set; }
+        [Required]
         public bool IsActive { get; set; }
+        public ICollection<Tournament> Tournaments { get; set; }
     }
 }

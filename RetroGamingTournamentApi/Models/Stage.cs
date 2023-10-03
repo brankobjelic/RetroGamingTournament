@@ -8,5 +8,6 @@ namespace RetroGamingTournament.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+        public ICollection<Tournament>? Tournaments { get; set; }
     }
 }
