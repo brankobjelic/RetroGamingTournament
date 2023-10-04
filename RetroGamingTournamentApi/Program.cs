@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using RetroGamingTournament.DTO;
+using RetroGamingTournament.Mapping;
 using RetroGamingTournament.Models;
+using RetroGamingTournament.Repositories;
+using RetroGamingTournament.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Add services to the container.
 
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
