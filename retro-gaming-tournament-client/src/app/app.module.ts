@@ -9,17 +9,19 @@ import { PlayersComponent } from './players/players.component';
 import { GamesComponent } from './games/games.component';
 import { CreateTournamentComponent } from './create-tournament/create-tournament.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     TournamentsComponent,
     PlayersComponent,
     GamesComponent,
-    CreateTournamentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    CreateTournamentComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

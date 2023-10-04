@@ -1,1 +1,33 @@
-<p>create-tournament works!</p>
+<div class="example-container">
+    <h2>Registrovani igrači</h2>
+  
+    <div
+    cdkDropList
+    #playersList="cdkDropList"
+    [cdkDropListData]="players"
+    [cdkDropListConnectedTo]="[tournamentPlayersList]"
+      class="example-list"
+      (cdkDropListDropped)="onItemDropped($event)">
+      <div class="example-box" *ngFor="let item of players" cdkDrag>{{item.name}}</div>
+    </div>
+</div>
+  
+<div class="example-container-2">
+    <h2>Igrači koji igraju turnir</h2>
+    <div class="example-container-2-1">
+        <div class="exampleListNumbering">
+            <div class="example-box-numbering" *ngFor="let item of arr" data-index="item">{{item}}</div>
+        </div>
+    </div>
+    <div class="example-container-2-2">
+        <div
+        cdkDropList
+        #tournamentPlayersList="cdkDropList"
+        [cdkDropListData]="tournamentPlayers"
+        [cdkDropListConnectedTo]="[playersList]"
+        class="example-list"
+        (cdkDropListDropped)="onItemDropped($event)">
+        <div class="example-box" *ngFor="let item of tournamentPlayers" cdkDrag>{{item.name}}</div>
+        </div>
+    </div>
+</div>

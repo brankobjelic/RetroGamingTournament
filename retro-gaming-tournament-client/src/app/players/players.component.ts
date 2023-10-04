@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PlayerService } from '../services/player.service';
+import { Player } from '../models/player.model';
 
 @Component({
   selector: 'app-players',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class PlayersComponent {
 
+  players: Player[] = []
+
+  constructor(private playerService: PlayerService){}
+
+  ngOnInit(){
+    this.playerService.getPlayers().subscribe({
+      next: (data) =>    {
+        this.players = data;
+      }     
+    })
+  }
 }
