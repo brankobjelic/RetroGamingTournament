@@ -20,7 +20,6 @@ export class PlayerService {
       map(response => {
         response.forEach(element => {
             this.players.push(new Player(element.id, element.name))
-          console.log(this.players);
           });
        return this.players
       }),

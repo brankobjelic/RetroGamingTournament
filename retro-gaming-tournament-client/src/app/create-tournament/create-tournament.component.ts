@@ -9,6 +9,7 @@ import {
 import { NgFor } from '@angular/common';
 import { Player } from '../models/player.model';
 import { PlayerService } from '../services/player.service';
+import { TournamentService } from '../services/tournament.service';
 
 @Component({
   selector: 'app-create-tournament',
@@ -19,7 +20,7 @@ import { PlayerService } from '../services/player.service';
 })
 export class CreateTournamentComponent {
 
-  constructor(private playerService: PlayerService){}
+  constructor(private playerService: PlayerService, private tournamentService: TournamentService){}
 
   players : Player[] = []
   tournamentPlayers: Player[] = []
@@ -46,17 +47,16 @@ export class CreateTournamentComponent {
         event.currentIndex,
       );
     }
-  }
 
-  // onSlotDropped(event: CdkDragDrop<Player[]>) {
-  //   if (event.previousContainer !== event.container) {
-  //     transferArrayItem(
-  //       this.players,
-  //       this.slots,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   }
-  // }
+  }
+  onSubmitPlayers(){
+    console.log(this.tournamentPlayers)
+    this.tournamentService.getGroups(this.tournamentPlayers).subscribe({
+      next: (response) => {
+        console.log(response)
+      }
+    })
+
+  }
 
 }
