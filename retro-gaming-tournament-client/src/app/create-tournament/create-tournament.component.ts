@@ -24,7 +24,7 @@ export class CreateTournamentComponent {
 
   players : Player[] = []
   tournamentPlayers: Player[] = []
-  arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
  
 
   ngOnInit(){
@@ -49,13 +49,17 @@ export class CreateTournamentComponent {
     }
 
   }
-  onSubmitPlayers(){
+  onSubmitPlayers(event: Event){
+    event.preventDefault();
     console.log(this.tournamentPlayers)
-    this.tournamentService.getGroups(this.tournamentPlayers).subscribe({
-      next: (response) => {
+    this.tournamentService.getGroups(this.tournamentPlayers).subscribe(
+      response => {
         console.log(response)
+      }, error => {
+        console.error(error);
+        // Handle any errors here
       }
-    })
+    )
 
   }
 

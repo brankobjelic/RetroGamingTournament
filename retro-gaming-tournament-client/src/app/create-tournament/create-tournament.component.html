@@ -31,6 +31,6 @@
         <div class="example-box" *ngFor="let item of tournamentPlayers" cdkDrag>{{item.name}}</div>
         </div>
     </div>
-    <button mat-raised-button color="primary" (click)="onSubmitPlayers()">Zdrijeb</button>
+    <button mat-raised-button color="primary" [disabled]="tournamentPlayers.length < 8" (click)="onSubmitPlayers($event)">Zdrijeb</button>
 </div>
 </form>
