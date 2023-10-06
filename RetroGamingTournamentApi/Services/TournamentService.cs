@@ -3,6 +3,7 @@ using RetroGamingTournament.DTO;
 using RetroGamingTournament.Extensions;
 using RetroGamingTournament.Models;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace RetroGamingTournament.Services
 {
@@ -20,12 +21,16 @@ namespace RetroGamingTournament.Services
                 return null;
             }
 
-            Group P = new Group {};
-            Group C = new Group {};
-            Group Z = new Group {};
-            Group S = new Group {};
+            GroupGetDetailsResponseDTO P = new GroupGetDetailsResponseDTO { };
+            P.GroupPlayers = new List<PlayerDTO>();
+            GroupGetDetailsResponseDTO C = new GroupGetDetailsResponseDTO { };
+            C.GroupPlayers = new List<PlayerDTO>();
+            GroupGetDetailsResponseDTO Z = new GroupGetDetailsResponseDTO { };
+            Z.GroupPlayers = new List<PlayerDTO>();
+            GroupGetDetailsResponseDTO S = new GroupGetDetailsResponseDTO { };
+            S.GroupPlayers = new List<PlayerDTO>();
 
-            players.ToList().Shuffle();
+            var shuffledPlayers = players.ToList().Shuffle();
 
             switch (players.Count())
             {
@@ -81,40 +86,46 @@ namespace RetroGamingTournament.Services
                 default:
                     throw new ArgumentException();
             }
-            var groupP = (players.Take(P.NumberOfGroupContestants));
-            P.GroupPlayers = _mapper.Map<ICollection<TournamentPlayer>>(groupP);
-            var groupC = (players.Take(C.NumberOfGroupContestants));
-            C.GroupPlayers = _mapper.Map<ICollection<TournamentPlayer>>(groupC);
+            var groupP = (shuffledPlayers.Take(P.NumberOfGroupContestants)).ToList();
+            foreach (var p in groupP)
+            {
+                P.GroupPlayers.Add(p);
+            }
+
+            var groupC = (shuffledPlayers.Skip(P.NumberOfGroupContestants).Take(C.NumberOfGroupContestants)).ToList();
+            foreach (var c in groupC)
+            {
+                C.GroupPlayers.Add(c);
+            }
+
             if (Z.NumberOfGroupContestants > 0)
             {
-                var groupZ = (players.Take(Z.NumberOfGroupContestants));
-                Z.GroupPlayers = _mapper.Map<ICollection<TournamentPlayer>>(groupZ);
+                var groupZ = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants).Take(Z.NumberOfGroupContestants));
+                foreach (var z in groupZ)
+                {
+                    Z.GroupPlayers.Add(z);
+                }
             }
             if (S.NumberOfGroupContestants > 0)
             {
-                var groupS = (players.Take(S.NumberOfGroupContestants));
-                Z.GroupPlayers = _mapper.Map<ICollection<TournamentPlayer>>(groupS);
+                var groupS = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants + Z.NumberOfGroupContestants).Take(S.NumberOfGroupContestants));
+                foreach (var s in groupS)
+                {
+                    S.GroupPlayers.Add(s);
+                }
             }
             if (players.Count() == 8)
             {
-                var PgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
-                var CgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
-                return new List<GroupGetDetailsResponseDTO> { PgroupDTO, CgroupDTO };
+
+                return new List<GroupGetDetailsResponseDTO> { P, C };
             }
             if (players.Count() >= 9 && players.Count() <= 12)
             {
-                var PgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
-                var CgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
-                var ZgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(Z);
-                return new List<GroupGetDetailsResponseDTO> { PgroupDTO, CgroupDTO, ZgroupDTO };
+                return new List<GroupGetDetailsResponseDTO> { P, C, Z };
             }
             else
             {
-                var PgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
-                var CgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
-                var ZgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(Z);
-                var SgroupDTO = _mapper.Map<GroupGetDetailsResponseDTO>(S);
-                return new List<GroupGetDetailsResponseDTO> { PgroupDTO, CgroupDTO, ZgroupDTO, SgroupDTO };
+                return new List<GroupGetDetailsResponseDTO> { P, C, Z, S };
             }
         }
     }
