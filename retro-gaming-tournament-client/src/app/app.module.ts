@@ -8,6 +8,7 @@ import { TournamentsComponent } from './tournaments/tournaments.component';
 import { PlayersComponent } from './players/players.component';
 import { GamesComponent } from './games/games.component';
 import { CreateTournamentComponent } from './create-tournament/create-tournament.component';
+import { GroupsComponent } from './groups/groups.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { CreateTournamentComponent } from './create-tournament/create-tournament
     TournamentsComponent,
     PlayersComponent,
     GamesComponent,
+    GroupsComponent,
   ],
   imports: [
     BrowserModule,

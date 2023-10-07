@@ -1,0 +1,62 @@
+<div style="margin-top: 50px; text-align: center;">
+  <div class="tableDiv" *ngIf="receivedData[0]">
+    <table>
+      <thead class="theadP">
+        <tr>
+          <th colspan="2">Plava grupa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of receivedData[0].groupPlayers; index as i">
+          <th class="theadP">P{{ i + 1 }}</th>
+          <td>{{ player.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tableDiv" *ngIf="receivedData[1]">
+    <table>
+      <thead class="theadC">
+        <tr>
+          <th class="theadC" colspan="2">Crvena grupa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of receivedData[1].groupPlayers; index as i">
+          <th class="theadC">C{{ i + 1 }}</th>
+          <td>{{ player.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tableDiv" *ngIf="receivedData[2]">
+    <table>
+      <thead class="theadZ">
+        <tr>
+          <th class="thZ" colspan="2">Zelena grupa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of receivedData[2].groupPlayers; index as i">
+          <th class="theadZ">Z{{ i + 1 }}</th>
+          <td>{{ player.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tableDiv" *ngIf="receivedData[3]">
+    <table>
+      <thead class="theadS">
+        <tr>
+          <th class="thS" colspan="2">Siva grupa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of receivedData[3].groupPlayers; index as i">
+          <th class="theadS">S{{ i + 1 }}</th>
+          <td>{{ player.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

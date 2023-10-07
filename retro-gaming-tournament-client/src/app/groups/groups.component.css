@@ -1,0 +1,42 @@
+.tableDiv {
+    display: inline-block;
+    vertical-align:top;
+}
+
+table {
+    margin: 20px;
+    min-width: 200px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.theadP {
+    background-color: blue;
+    color: white;
+}
+
+.theadC {
+    background-color: red;
+    color: white;
+}
+
+.theadZ {
+    background-color: green;
+    color: white;
+}
+
+.theadS {
+    background-color: gray;
+    color: white;
+}
+
+td {
+    text-align: center;
+}
+
+tbody tr th {
+    width: 15px;
+}

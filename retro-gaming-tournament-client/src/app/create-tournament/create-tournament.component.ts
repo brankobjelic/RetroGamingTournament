@@ -10,6 +10,7 @@ import { NgFor } from '@angular/common';
 import { Player } from '../models/player.model';
 import { PlayerService } from '../services/player.service';
 import { TournamentService } from '../services/tournament.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-tournament',
@@ -20,7 +21,7 @@ import { TournamentService } from '../services/tournament.service';
 })
 export class CreateTournamentComponent {
 
-  constructor(private playerService: PlayerService, private tournamentService: TournamentService){}
+  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router){}
 
   players : Player[] = []
   tournamentPlayers: Player[] = []
@@ -55,6 +56,7 @@ export class CreateTournamentComponent {
     this.tournamentService.getGroups(this.tournamentPlayers).subscribe(
       response => {
         console.log(response)
+        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response) } });
       }, error => {
         console.error(error);
         // Handle any errors here
