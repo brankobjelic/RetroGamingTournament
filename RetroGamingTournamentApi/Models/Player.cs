@@ -8,6 +8,8 @@ namespace RetroGamingTournament.Models
         [StringLength(5, MinimumLength = 2)]
         [Required]
         public string Name { get; set; }
+        [StringLength(200)]
+        public string? NameAudioUrl { get; set; }
         [Required]
         public bool IsActive { get; set; }
         public ICollection<Tournament> Tournaments { get; set; }
