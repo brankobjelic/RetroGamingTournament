@@ -17,7 +17,7 @@ import { GroupsComponent } from './groups/groups.component';
     TournamentsComponent,
     PlayersComponent,
     GamesComponent,
-    GroupsComponent,
+    GroupsComponent,  
   ],
   imports: [
     BrowserModule,

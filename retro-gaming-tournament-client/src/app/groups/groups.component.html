@@ -9,7 +9,7 @@
       <tbody>
         <tr *ngFor="let player of receivedData[0].groupPlayers; index as i">
           <th class="theadP">P{{ i + 1 }}</th>
-          <td>{{ player.name }}</td>
+          <td ><span #P style="display: none;">{{player.name}}</span></td>
         </tr>
       </tbody>
     </table>
@@ -24,7 +24,7 @@
       <tbody>
         <tr *ngFor="let player of receivedData[1].groupPlayers; index as i">
           <th class="theadC">C{{ i + 1 }}</th>
-          <td>{{ player.name }}</td>
+          <td ><span #C style="display: none;">{{player.name}}</span></td>
         </tr>
       </tbody>
     </table>
@@ -39,7 +39,7 @@
       <tbody>
         <tr *ngFor="let player of receivedData[2].groupPlayers; index as i">
           <th class="theadZ">Z{{ i + 1 }}</th>
-          <td>{{ player.name }}</td>
+          <td ><span #Z style="display: none;">{{player.name}}</span></td>
         </tr>
       </tbody>
     </table>
@@ -54,7 +54,7 @@
       <tbody>
         <tr *ngFor="let player of receivedData[3].groupPlayers; index as i">
           <th class="theadS">S{{ i + 1 }}</th>
-          <td>{{ player.name }}</td>
+          <td ><span #S style="display: none;">{{player.name}}</span></td>
         </tr>
       </tbody>
     </table>
