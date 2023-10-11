@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string? NameAudioFilePath { get; set; }
+        public string? NameAudioFile { get; set; }
     }
 }

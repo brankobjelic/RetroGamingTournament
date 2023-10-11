@@ -18,7 +18,7 @@ namespace RetroGamingTournament.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PlayerGetDetailsResponseDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<PlayerDTO>>> Get()
         {
             var result = await _service.GetAsync();
             return Ok(result);
