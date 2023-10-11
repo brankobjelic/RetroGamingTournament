@@ -11,6 +11,8 @@ import { Player } from '../models/player.model';
 import { PlayerService } from '../services/player.service';
 import { TournamentService } from '../services/tournament.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin, map, mergeAll, mergeMap, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-create-tournament',
@@ -21,7 +23,7 @@ import { Router } from '@angular/router';
 })
 export class CreateTournamentComponent {
 
-  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router){}
+  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient){}
 
   players : Player[] = []
   tournamentPlayers: Player[] = []
@@ -53,7 +55,8 @@ export class CreateTournamentComponent {
   onSubmitPlayers(event: Event){
     event.preventDefault();
     console.log(this.tournamentPlayers)
-    this.tournamentService.getGroups(this.tournamentPlayers).subscribe(
+    this.tournamentService.getGroups(this.tournamentPlayers)
+    .subscribe(
       response => {
         console.log(response)
         this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response) } });
@@ -64,5 +67,5 @@ export class CreateTournamentComponent {
     )
 
   }
-
 }
+

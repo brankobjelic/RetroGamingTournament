@@ -10,12 +10,17 @@ export class GroupsComponent {
   receivedData: any;
 
   @ViewChildren('P') groupPElementRefs!:QueryList<ElementRef>;
+  @ViewChildren('PAudio') groupPAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('C') groupCElementRefs!:QueryList<ElementRef>;
+  @ViewChildren('CAudio') groupCAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('Z') groupZElementRefs!:QueryList<ElementRef>;
+  @ViewChildren('ZAudio') groupZAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('S') groupSElementRefs!:QueryList<ElementRef>;
+  @ViewChildren('SAudio') groupSAudioElementRefs!:QueryList<ElementRef>;
 
   numberOfPlayersInGroup: number[] = []
   playersInOrderOfAppearance: ElementRef[] = []
+  audioInOrderOfAppearance: ElementRef[] = []
 
 
   constructor(private route: ActivatedRoute) {}
@@ -23,25 +28,27 @@ export class GroupsComponent {
   ngOnInit(): void{
     this.route.queryParams.subscribe(params => {
       this.receivedData = JSON.parse(params['data']);
-      console.log(this.receivedData);
-      console.log(this.receivedData.length)
     });
 
   }
 
   ngAfterViewInit(): void {
       console.log(this.groupPElementRefs.toArray());
-      console.log(this.groupPElementRefs.toArray()[0])
       for (let i = 0; i < this.groupPElementRefs.toArray().length; i++){
         this.playersInOrderOfAppearance.push(this.groupPElementRefs.toArray()[i])
+        this.audioInOrderOfAppearance.push(this.groupPAudioElementRefs.toArray()[i])
         if (this.groupCElementRefs.toArray()[i]){
-          this.playersInOrderOfAppearance.push(this.groupCElementRefs.toArray()[i])      
+          this.playersInOrderOfAppearance.push(this.groupCElementRefs.toArray()[i])
+          this.audioInOrderOfAppearance.push(this.groupCAudioElementRefs.toArray()[i])
+
         }        
         if (this.groupZElementRefs.toArray()[i]){
           this.playersInOrderOfAppearance.push(this.groupZElementRefs.toArray()[i])      
+          this.audioInOrderOfAppearance.push(this.groupZAudioElementRefs.toArray()[i])
         }        
         if (this.groupSElementRefs.toArray()[i]){
           this.playersInOrderOfAppearance.push(this.groupSElementRefs.toArray()[i])      
+          this.audioInOrderOfAppearance.push(this.groupSAudioElementRefs.toArray()[i])
         }
       }
 
@@ -49,9 +56,12 @@ export class GroupsComponent {
       const showNextElement = () => {
         if (index < this.playersInOrderOfAppearance.length) {
           const element = this.playersInOrderOfAppearance[index];
+          const elementAudio = this.audioInOrderOfAppearance[index]
           if (element) {
             console.log(element.nativeElement.textContent);
             element.nativeElement.style.display = 'block';
+            elementAudio.nativeElement.autoplay = 'true'
+            elementAudio.nativeElement.play()
           }
 
           index++;
@@ -61,5 +71,11 @@ export class GroupsComponent {
 
       setTimeout(showNextElement, 2000);
   
+  }
+  getAudioUrl(nameAudioFile: string) {
+    if(nameAudioFile){
+      return `http://localhost:5180/api/Players/Audio/${nameAudioFile}`
+    }
+    return "http://localhost:5180/api/Players/Audio/nowo-mehso.mp3"
   }
 }
