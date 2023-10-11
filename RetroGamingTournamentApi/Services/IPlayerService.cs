@@ -6,7 +6,7 @@ namespace RetroGamingTournament.Services
     {
         public Task<PlayerGetDetailsResponseDTO> CreateAsync(PlayerCreateRequestDTO book);
         public Task<IEnumerable<PlayerGetDetailsResponseDTO>> GetAsync();
-        public Task<PlayerGetDetailsResponseDTO> GetDetailsAsync(int id);
+        public Task<PlayerDTO> GetDetailsAsync(int id);
         public Task<bool> DeleteAsync(int id);
     }
 }

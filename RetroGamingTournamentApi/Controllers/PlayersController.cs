@@ -10,9 +10,11 @@ namespace RetroGamingTournament.Controllers
     public class PlayersController : ControllerBase
     {
         private readonly IPlayerService _service;
-        public PlayersController(IPlayerService service)
+        private readonly IFileService _fileService;
+        public PlayersController(IPlayerService service, IFileService fileService)
         {
-            _service = service;   
+            _service = service;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -40,6 +42,36 @@ namespace RetroGamingTournament.Controllers
         public IActionResult Put(int id)
         {
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Audio/{filename}")]
+        public IActionResult GetAudio(string filename)
+        {
+            var fileBytes = _fileService.GetAudioFile(filename);
+            if (fileBytes == null)
+            {
+                return NotFound(); // Or handle the scenario when the audio file is not found
+            }
+
+            string mimeType;
+            switch (Path.GetExtension(filename))
+            {
+                case ".mp3":
+                    mimeType = "audio/mpeg";
+                    break;
+                case ".wav":
+                    mimeType = "audio/wav";
+                    break;
+                case ".ogg":
+                    mimeType = "audio/ogg";
+                    break;
+                default:
+                    mimeType = "application/octet-stream"; // Fallback MIME type if extension is unknown
+                    break;
+            }
+
+            return File(fileBytes, mimeType);
         }
     }
 }

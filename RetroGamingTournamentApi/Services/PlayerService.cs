@@ -31,9 +31,10 @@ namespace RetroGamingTournament.Services
             return _mapper.Map<IEnumerable<PlayerGetDetailsResponseDTO>>(players);
         }
 
-        public Task<PlayerGetDetailsResponseDTO> GetDetailsAsync(int id)
+        public async Task<PlayerDTO> GetDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            var player = await _repository.Get(id);
+            return _mapper.Map<PlayerDTO>(player);
         }
     }
 }

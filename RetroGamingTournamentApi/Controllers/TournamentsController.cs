@@ -22,6 +22,10 @@ namespace RetroGamingTournament.Controllers
             {
                 return BadRequest();
             }
+            foreach(PlayerDTO p in players)
+            {
+
+            }
             var groups = await _service.GroupsGetDetails(players);
             return Ok(groups);
         }
