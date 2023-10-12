@@ -8,6 +8,7 @@ namespace RetroGamingTournament.Models
         [StringLength(100)]
         [Required]
         public string Name { get; set; }
-        public string? Banner { get; set; }
+        public string? BannerFile { get; set; }
+        public int NumberOfPlayers { get; set; }
     }
 }

@@ -35,12 +35,11 @@ namespace RetroGamingTournament.Models
                 new { Id = 11, Name = "Rada", IsActive = true },
                 new { Id = 12, Name = "Laush", IsActive = true }
             );
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Game>().HasData(
-                new { Id = 1, Name = "Mortal Kombat 2" },
-                new { Id = 2, Name = "Mortal Kombat 3" }
+                new { Id = 1, Name = "Mortal Kombat 3", NumberOfPlayers = 2},
+                new { Id = 2, Name = "Micro Machines", NumberOfPlayers = 4}
             );
         }
-
-
     }
 }
