@@ -1,36 +1,67 @@
-<form>
-<div class="example-container">
+<form [formGroup]="createTournamentForm">
+  <div>
+    <select formControlName="game">
+      <option [ngValue]="null" disabled>--Izaberi igru--</option>
+      <option *ngFor="let game of games" [ngValue]="game.id">
+        {{ game.name }}
+      </option>
+    </select>
+    <!-- <select name="games" id="games">
+      <option disabled selected value="">--Izaberi igru--</option>
+      <option value="mk3">Mortal Kombat 3</option>
+      <option value="mm">Micro Machines</option>
+    </select> -->
+  </div>
+  <div class="example-container">
     <h2>Registrovani igrači</h2>
-  
+
     <div
-    cdkDropList
-    #playersList="cdkDropList"
-    [cdkDropListData]="players"
-    [cdkDropListConnectedTo]="[tournamentPlayersList]"
+      cdkDropList
+      #playersList="cdkDropList"
+      [cdkDropListData]="players"
+      [cdkDropListConnectedTo]="[tournamentPlayersList]"
       class="example-list"
-      (cdkDropListDropped)="onItemDropped($event)">
-      <div class="example-box" *ngFor="let item of players" cdkDrag>{{item.name}}</div>
+      (cdkDropListDropped)="onItemDropped($event)"
+    >
+      <div class="example-box" *ngFor="let item of players" cdkDrag>
+        {{ item.name }}
+      </div>
     </div>
-</div>
-  
-<div class="example-container-2">
+  </div>
+
+  <div class="example-container-2">
     <h2>Igrači koji igraju turnir</h2>
     <div class="example-container-2-1">
-        <div class="exampleListNumbering">
-            <div class="example-box-numbering" *ngFor="let item of arr" data-index="item">{{item}}</div>
+      <div class="exampleListNumbering">
+        <div
+          class="example-box-numbering"
+          *ngFor="let item of arr"
+          data-index="item"
+        >
+          {{ item }}
         </div>
+      </div>
     </div>
     <div class="example-container-2-2">
-        <div
+      <div
         cdkDropList
         #tournamentPlayersList="cdkDropList"
         [cdkDropListData]="tournamentPlayers"
         [cdkDropListConnectedTo]="[playersList]"
         class="example-list"
-        (cdkDropListDropped)="onItemDropped($event)">
-        <div class="example-box" *ngFor="let item of tournamentPlayers" cdkDrag>{{item.name}}</div>
+        (cdkDropListDropped)="onItemDropped($event)"
+      >
+        <div class="example-box" *ngFor="let item of tournamentPlayers" cdkDrag>
+          {{ item.name }}
         </div>
+      </div>
     </div>
-    <button [disabled]="tournamentPlayers.length < 8" (click)="onSubmitPlayers($event)">Žreb</button>
-</div>
+    <button
+        type="submit"
+      [disabled]="tournamentPlayers.length < 8"
+      (click)="onSubmit($event)"
+    >
+      Žreb
+    </button>
+  </div>
 </form>
