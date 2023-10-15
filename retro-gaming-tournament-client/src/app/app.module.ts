@@ -25,11 +25,11 @@ import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CreateTournamentComponent,
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    CdkDropList
+    CdkDropList,
+    CreateTournamentComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,9 +28,6 @@ import { forkJoin, map, mergeAll, mergeMap, toArray } from 'rxjs';
 export class CreateTournamentComponent {
 
   //createTournamentForm!: FormGroup
-
-  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient, private gameService: GameService){}
-
   players : Player[] = []
   tournamentPlayers: Player[] = []
   arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
@@ -39,6 +36,9 @@ export class CreateTournamentComponent {
   createTournamentForm = new FormGroup({
     game: new FormControl(),
   })
+
+  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient, private gameService: GameService){}
+
  
 
   ngOnInit(){
@@ -75,7 +75,7 @@ export class CreateTournamentComponent {
     .subscribe(
       response => {
         console.log(response)
-        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response) } });
+        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response), game: JSON.stringify(this.createTournamentForm.value.game) }});
       }, error => {
         console.error(error);
         // Handle any errors here

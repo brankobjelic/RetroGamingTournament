@@ -2,15 +2,10 @@
   <div>
     <select formControlName="game">
       <option [ngValue]="null" disabled>--Izaberi igru--</option>
-      <option *ngFor="let game of games" [ngValue]="game.id">
+      <option *ngFor="let game of games" [ngValue]="game">
         {{ game.name }}
       </option>
     </select>
-    <!-- <select name="games" id="games">
-      <option disabled selected value="">--Izaberi igru--</option>
-      <option value="mk3">Mortal Kombat 3</option>
-      <option value="mm">Micro Machines</option>
-    </select> -->
   </div>
   <div class="example-container">
     <h2>Registrovani igrači</h2>
