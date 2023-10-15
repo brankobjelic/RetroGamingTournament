@@ -37,8 +37,8 @@ namespace RetroGamingTournament.Models
             );
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Game>().HasData(
-                new { Id = 1, Name = "Mortal Kombat 3", NumberOfPlayers = 2},
-                new { Id = 2, Name = "Micro Machines", NumberOfPlayers = 4}
+                new { Id = 1, Name = "Mortal Kombat 3", GameType = 'A'},
+                new { Id = 2, Name = "Micro Machines", GameType = 'B'}
             );
         }
     }

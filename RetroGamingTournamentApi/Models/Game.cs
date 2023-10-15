@@ -9,6 +9,6 @@ namespace RetroGamingTournament.Models
         [Required]
         public string Name { get; set; }
         public string? BannerFile { get; set; }
-        public int NumberOfPlayers { get; set; }
+        public char GameType { get; set; }
     }
 }
