@@ -8,5 +8,6 @@ namespace RetroGamingTournament.Models
         public int NumberOfPlayers { get; set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
+        public GroupScore[]? Scores { get; set; }
     }
 }

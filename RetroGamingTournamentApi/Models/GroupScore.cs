@@ -7,6 +7,7 @@
         public Group Group { get; set; }
         public int PlayerId { get; set; }
         public Player Player { get; set; }
-        public int Score { get; set; }
+        public int ScoreWin { get; set; }
+        public int ScoreLose { get; set; }
     }
 }
