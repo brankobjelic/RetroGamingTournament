@@ -12,6 +12,6 @@ namespace RetroGamingTournament.Models
         public string? NameAudioFile { get; set; }
         [Required]
         public bool IsActive { get; set; }
-        public ICollection<Tournament> Tournaments { get; set; }
+        public ICollection<Group> Groups { get; set; }
     }
 }

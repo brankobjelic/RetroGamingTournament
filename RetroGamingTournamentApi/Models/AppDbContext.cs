@@ -13,10 +13,9 @@ namespace RetroGamingTournament.Models
         public DbSet<Player> Players { get; set; }
         public DbSet<Stage> Stages { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<MatchPlayer> MatchPlayers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
-        public DbSet<GroupScore> GroupScores { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

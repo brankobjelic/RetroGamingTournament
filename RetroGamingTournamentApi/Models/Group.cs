@@ -8,10 +8,9 @@ namespace RetroGamingTournament.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-        public int NumberOfGroupContestants { get; set; }
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
-        public ICollection<TournamentPlayer> GroupPlayers { get; set; }
+        public ICollection<Player> Players { get; set; }
 
     }
 }

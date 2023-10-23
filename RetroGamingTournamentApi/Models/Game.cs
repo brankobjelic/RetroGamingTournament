@@ -10,5 +10,6 @@ namespace RetroGamingTournament.Models
         public string Name { get; set; }
         public string? BannerFile { get; set; }
         public char GameType { get; set; }
+        public ICollection<Tournament> Tournaments { get; set; }
     }
 }

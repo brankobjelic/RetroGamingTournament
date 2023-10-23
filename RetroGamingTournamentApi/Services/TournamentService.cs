@@ -4,6 +4,7 @@ using RetroGamingTournament.Extensions;
 using RetroGamingTournament.Models;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TournamentScheduling;
 
 namespace RetroGamingTournament.Services
 {
@@ -127,6 +128,10 @@ namespace RetroGamingTournament.Services
             {
                 return new List<GroupGetDetailsResponseDTO> { P, C, Z, S };
             }
+        }
+        public void GetRoundRobin(IEnumerable<PlayerDTO> groupPlayers)
+        {
+            var schedule = new RoundRobinAlgorithm().GetCalculatedSchedule(4);
         }
     }
 }

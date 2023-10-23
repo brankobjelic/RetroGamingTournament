@@ -5,9 +5,8 @@ namespace RetroGamingTournament.Models
     public class Match
     {
         public int Id { get; set; }
-        public int NumberOfPlayers { get; set; }
-        public int GroupId { get; set; }
-        public Group Group { get; set; }
-        public GroupScore[]? Scores { get; set; }
+        ICollection<Player> Players { get; set; }
+        ICollection<int> Scores { get; set; }
+        ICollection<int>? Points { get; set; }
     }
 }
