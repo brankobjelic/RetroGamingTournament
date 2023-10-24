@@ -247,6 +247,33 @@ namespace RetroGamingTournament.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "GroupStage"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Last8"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Last4"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Final"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "ThirdPlaceMatch"
+                        });
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Tournament", b =>

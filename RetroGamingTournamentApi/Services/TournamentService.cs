@@ -129,9 +129,10 @@ namespace RetroGamingTournament.Services
                 return new List<GroupGetDetailsResponseDTO> { P, C, Z, S };
             }
         }
-        public void GetRoundRobin(IEnumerable<PlayerDTO> groupPlayers)
+        public int[][][] GetRoundRobin(int numberOfPlayers)
         {
-            var schedule = new RoundRobinAlgorithm().GetCalculatedSchedule(4);
+            var schedule = new RoundRobinAlgorithm().GetCalculatedSchedule(numberOfPlayers);
+            return schedule;
         }
     }
 }

@@ -26,5 +26,11 @@ namespace RetroGamingTournament.Controllers
             var groups = await _service.GroupsGetDetails(players);
             return Ok(groups);
         }
+        [HttpGet]
+        public IActionResult GetRoundRobin(int numberOfPlayers) 
+        {
+            var matches = _service.GetRoundRobin(numberOfPlayers);
+            return Ok(matches);
+        }
     }
 }
