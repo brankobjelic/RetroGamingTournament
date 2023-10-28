@@ -35,7 +35,8 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
-
+builder.Services.AddScoped<ITournamentService, TournamentService>();
+builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllers();

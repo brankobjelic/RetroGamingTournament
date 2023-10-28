@@ -1,4 +1,6 @@
-﻿using RetroGamingTournament.DTO;
+﻿using AutoMapper;
+using RetroGamingTournament.DTO;
+using RetroGamingTournament.Models;
 using RetroGamingTournament.Repositories;
 
 namespace RetroGamingTournament.Services
@@ -6,13 +8,25 @@ namespace RetroGamingTournament.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
-        public EventService(IEventRepository eventRepository)
+        private readonly IMapper _mapper;
+        public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
-        public Task<EventGetDetailsResponseDTO> CreateAsync(EventCreateRequestDTO ev)
+        public async Task<EventGetDetailsResponseDTO> CreateAsync(EventCreateRequestDTO ev)
         {
-            throw new NotImplementedException();
+            var eventEntity = _mapper.Map<Event>(ev);
+            eventEntity.EventDate = DateTime.Now;
+            try
+            {
+                var result = await _eventRepository.Create(eventEntity);
+                return _mapper.Map<EventGetDetailsResponseDTO>(result);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Task<bool> DeleteAsync(int id)

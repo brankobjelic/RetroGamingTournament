@@ -2,6 +2,7 @@
 using RetroGamingTournament.DTO;
 using RetroGamingTournament.Extensions;
 using RetroGamingTournament.Models;
+using RetroGamingTournament.Repositories;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TournamentScheduling;
@@ -11,9 +12,11 @@ namespace RetroGamingTournament.Services
     public class TournamentService : ITournamentService
     {
         private readonly IMapper _mapper;
-        public TournamentService(IMapper mapper)
+        private readonly ITournamentRepository _repository;
+        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository)
         {
             _mapper = mapper;
+            _repository = tournamentRepository;
         }
         public async Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(IEnumerable<PlayerDTO> players)
         {
@@ -133,6 +136,30 @@ namespace RetroGamingTournament.Services
         {
             var schedule = new RoundRobinAlgorithm().GetCalculatedSchedule(numberOfPlayers);
             return schedule;
+        }
+
+        public async Task<TournamentGetDetailsResponseDTO> CreateAsync(TournamentCreateRequestDTO tournamentDTO)
+        {
+            var tournamentEntity = _mapper.Map<Tournament>(tournamentDTO);
+            await _repository.Create(tournamentEntity);
+            var tournamentDetailsDTO = _mapper.Map<TournamentGetDetailsResponseDTO>(tournamentEntity);
+            return tournamentDetailsDTO;
+
+        }
+
+        public Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

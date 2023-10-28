@@ -18,9 +18,11 @@ namespace RetroGamingTournament.Repositories
             return eventNameExists;
         }
 
-        public Task<Event> Create(Event ev)
+        public async Task<Event> Create(Event ev)
         {
-            throw new NotImplementedException();
+            var returnedValue = await _context.AddAsync(ev);
+            _context.SaveChanges();
+            return ev; //or returnedValue?
         }
 
         public Task Delete(Event ev)

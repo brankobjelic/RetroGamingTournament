@@ -12,6 +12,11 @@ namespace RetroGamingTournament.Mapping
             CreateMap<Player, PlayerGetDetailsResponseDTO>().ReverseMap();
             CreateMap<Player, PlayerDTO>().ReverseMap();
             CreateMap<Group, GroupGetDetailsResponseDTO>().ReverseMap();
+            CreateMap<Event, EventCreateRequestDTO>().ReverseMap();
+            CreateMap<Event, EventGetDetailsResponseDTO>().ReverseMap();
+            CreateMap<Tournament, TournamentCreateRequestDTO>().ReverseMap();
+            CreateMap<Tournament, TournamentGetDetailsResponseDTO>().ReverseMap();
+
         }
     }
 }

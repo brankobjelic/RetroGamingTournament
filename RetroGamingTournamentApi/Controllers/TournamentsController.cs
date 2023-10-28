@@ -14,6 +14,7 @@ namespace RetroGamingTournament.Controllers
         {
             _service = tournamentService;
         }
+
         [HttpPost]
         [Route("Draw")]
         public async Task<ActionResult> Draw(IEnumerable<PlayerDTO> players)
@@ -26,6 +27,18 @@ namespace RetroGamingTournament.Controllers
             var groups = await _service.GroupsGetDetails(players);
             return Ok(groups);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(TournamentCreateRequestDTO tournamentDTO)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var tournamentDetailsDTO = await _service.CreateAsync(tournamentDTO);
+            return Ok(tournamentDTO);
+        }
+
         [HttpGet]
         public IActionResult GetRoundRobin(int numberOfPlayers) 
         {

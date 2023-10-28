@@ -41,6 +41,20 @@ namespace RetroGamingTournament.Controllers
                 // Handle other exceptions
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred during event registration.");
             }
+            try
+            {
+                await _service.CreateAsync(ev);
+            }
+            catch (SqlException ex)
+            {
+                // Handle database connectivity issues
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database connection error.");
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred during event registration.");
+            }
             return Ok();
         }
     }
