@@ -9,7 +9,7 @@ namespace RetroGamingTournament.Services
         public Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id);
         public Task<bool> DeleteAsync(int id);
 
-        public Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(IEnumerable<PlayerDTO> players);
+        public Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO);
         public int[][][] GetRoundRobin(int numberOfPlayers);
     }
 }

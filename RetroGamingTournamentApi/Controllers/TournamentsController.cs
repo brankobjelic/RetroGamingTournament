@@ -17,14 +17,14 @@ namespace RetroGamingTournament.Controllers
 
         [HttpPost]
         [Route("Draw")]
-        public async Task<ActionResult> Draw(IEnumerable<PlayerDTO> players)
+        public async Task<ActionResult> Draw(DrawRequestDTO drawRequestDTO)
         {
-            if (players == null)
+            if (drawRequestDTO == null)
             {
                 return BadRequest();
             }
 
-            var groups = await _service.GroupsGetDetails(players);
+            var groups = await _service.GroupsGetDetails(drawRequestDTO);
             return Ok(groups);
         }
 

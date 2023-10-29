@@ -13,16 +13,26 @@ namespace RetroGamingTournament.Services
     {
         private readonly IMapper _mapper;
         private readonly ITournamentRepository _repository;
-        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository)
+        private readonly IPlayerRepository _playerRepository;
+        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository, IPlayerRepository playerRepository)
         {
             _mapper = mapper;
             _repository = tournamentRepository;
+            _playerRepository = playerRepository;
         }
-        public async Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(IEnumerable<PlayerDTO> players)
+        public ICollection<PlayerDTO> TournamentPlayers =new List<PlayerDTO>();
+
+        public async Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO)
         {
-            if (players.Count() < 8 ||  players.Count() > 16)
+            if (drawRequestDTO.TournamentPlayersIds.Count() < 8 || drawRequestDTO.TournamentPlayersIds.Count() > 16)
             {
                 return null;
+            }
+            for(int i = 0; i < drawRequestDTO.TournamentPlayersIds.Count(); i++)
+            {
+                var result = await _playerRepository.Get(drawRequestDTO.TournamentPlayersIds[i]);
+                var resultDTO = _mapper.Map<PlayerDTO>(result);
+                TournamentPlayers.Add(resultDTO);
             }
 
             GroupGetDetailsResponseDTO P = new GroupGetDetailsResponseDTO { };
@@ -34,9 +44,9 @@ namespace RetroGamingTournament.Services
             GroupGetDetailsResponseDTO S = new GroupGetDetailsResponseDTO { };
             S.GroupPlayers = new List<PlayerDTO>();
 
-            var shuffledPlayers = players.ToList().Shuffle();
+            var shuffledPlayers = TournamentPlayers.ToList().Shuffle();
 
-            switch (players.Count())
+            switch (TournamentPlayers.Count())
             {
                 case 8:
                     P.NumberOfGroupContestants = 4;
@@ -118,12 +128,12 @@ namespace RetroGamingTournament.Services
                     S.GroupPlayers.Add(s);
                 }
             }
-            if (players.Count() == 8)
+            if (TournamentPlayers.Count() == 8)
             {
 
                 return new List<GroupGetDetailsResponseDTO> { P, C };
             }
-            if (players.Count() >= 9 && players.Count() <= 12)
+            if (TournamentPlayers.Count() >= 9 && TournamentPlayers.Count() <= 12)
             {
                 return new List<GroupGetDetailsResponseDTO> { P, C, Z };
             }
