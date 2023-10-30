@@ -23,7 +23,7 @@ namespace RetroGamingTournament.Repositories
 
         public Task<Player> Get(int id)
         {
-            throw new NotImplementedException();
+            return _collection.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Player>> GetAll()

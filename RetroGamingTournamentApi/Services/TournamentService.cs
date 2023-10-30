@@ -6,6 +6,7 @@ using RetroGamingTournament.Repositories;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TournamentScheduling;
+using Group = RetroGamingTournament.Models.Group;
 
 namespace RetroGamingTournament.Services
 {
@@ -13,14 +14,14 @@ namespace RetroGamingTournament.Services
     {
         private readonly IMapper _mapper;
         private readonly ITournamentRepository _repository;
-        private readonly IPlayerRepository _playerRepository;
-        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository, IPlayerRepository playerRepository)
+        private readonly IGroupRepository _groupRepository;
+        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository, IGroupRepository groupRepository)
         {
             _mapper = mapper;
             _repository = tournamentRepository;
-            _playerRepository = playerRepository;
+            _groupRepository = groupRepository;
         }
-        public ICollection<PlayerDTO> TournamentPlayers =new List<PlayerDTO>();
+        public ICollection<Player> TournamentPlayers =new List<Player>();
 
         public async Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO)
         {
@@ -28,25 +29,32 @@ namespace RetroGamingTournament.Services
             {
                 return null;
             }
-            for(int i = 0; i < drawRequestDTO.TournamentPlayersIds.Count(); i++)
-            {
-                var result = await _playerRepository.Get(drawRequestDTO.TournamentPlayersIds[i]);
-                var resultDTO = _mapper.Map<PlayerDTO>(result);
-                TournamentPlayers.Add(resultDTO);
-            }
 
-            GroupGetDetailsResponseDTO P = new GroupGetDetailsResponseDTO { };
-            P.GroupPlayers = new List<PlayerDTO>();
-            GroupGetDetailsResponseDTO C = new GroupGetDetailsResponseDTO { };
-            C.GroupPlayers = new List<PlayerDTO>();
-            GroupGetDetailsResponseDTO Z = new GroupGetDetailsResponseDTO { };
-            Z.GroupPlayers = new List<PlayerDTO>();
-            GroupGetDetailsResponseDTO S = new GroupGetDetailsResponseDTO { };
-            S.GroupPlayers = new List<PlayerDTO>();
+            Group P = new Group();
+            P.Players = new List<Player>();
+            Group C = new Group();
+            C.Players = new List<Player>(); 
+            Group Z = new Group();
+            Z.Players = new List<Player>(); 
+            Group S = new Group();
+            S.Players = new List<Player>();
+
+            P.Name = nameof(P);
+            C.Name = nameof(C);
+            Z.Name = nameof(Z);
+            S.Name = nameof(S);
+            P.TournamentId = drawRequestDTO.TournamentId;
+            C.TournamentId = drawRequestDTO.TournamentId;
+            Z.TournamentId = drawRequestDTO.TournamentId;
+            S.TournamentId = drawRequestDTO.TournamentId;
+            P.Tournament = await  _repository.Get(drawRequestDTO.TournamentId);
+            C.Tournament = await  _repository.Get(drawRequestDTO.TournamentId);
+            Z.Tournament = await  _repository.Get(drawRequestDTO.TournamentId);
+            S.Tournament = await  _repository.Get(drawRequestDTO.TournamentId);
 
             var shuffledPlayers = TournamentPlayers.ToList().Shuffle();
 
-            switch (TournamentPlayers.Count())
+            switch (drawRequestDTO.TournamentPlayersIds.Count())
             {
                 case 8:
                     P.NumberOfGroupContestants = 4;
@@ -100,24 +108,28 @@ namespace RetroGamingTournament.Services
                 default:
                     throw new ArgumentException();
             }
-            var groupP = (shuffledPlayers.Take(P.NumberOfGroupContestants)).ToList();
+            var groupP = (shuffledPlayers.Take(P.NumberOfGroupContestants));
+            List<int> groupPPlayerIds = new List<int>();
             foreach (var p in groupP)
             {
-                P.GroupPlayers.Add(p);
+                groupPPlayerIds.Add(p.Id);
             }
 
-            var groupC = (shuffledPlayers.Skip(P.NumberOfGroupContestants).Take(C.NumberOfGroupContestants)).ToList();
+            var groupC = (shuffledPlayers.Skip(P.NumberOfGroupContestants).Take(C.NumberOfGroupContestants));
+            List<int> groupCPlayerIds = new List<int>();
             foreach (var c in groupC)
             {
-                C.GroupPlayers.Add(c);
+                groupCPlayerIds.Add(c.Id);
             }
 
+                List<int> groupZPlayerIds = new List<int>();
+                List<int> groupSPlayerIds = new List<int>();
             if (Z.NumberOfGroupContestants > 0)
             {
                 var groupZ = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants).Take(Z.NumberOfGroupContestants));
                 foreach (var z in groupZ)
                 {
-                    Z.GroupPlayers.Add(z);
+                    groupZPlayerIds.Add(z.Id);
                 }
             }
             if (S.NumberOfGroupContestants > 0)
@@ -125,21 +137,41 @@ namespace RetroGamingTournament.Services
                 var groupS = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants + Z.NumberOfGroupContestants).Take(S.NumberOfGroupContestants));
                 foreach (var s in groupS)
                 {
-                    S.GroupPlayers.Add(s);
+                    groupSPlayerIds.Add(s.Id);
                 }
             }
+
             if (TournamentPlayers.Count() == 8)
             {
+                await _groupRepository.Create(P, groupPPlayerIds);
+                var pRoundRobin = GetRoundRobin(P.NumberOfGroupContestants);
+                await _groupRepository.Create(C, groupCPlayerIds);
+                var pDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
+                var cDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
 
-                return new List<GroupGetDetailsResponseDTO> { P, C };
+                return new List<GroupGetDetailsResponseDTO> { pDTO, cDTO };
             }
             if (TournamentPlayers.Count() >= 9 && TournamentPlayers.Count() <= 12)
             {
-                return new List<GroupGetDetailsResponseDTO> { P, C, Z };
+                await _groupRepository.Create(P, groupPPlayerIds);
+                await _groupRepository.Create(C, groupCPlayerIds);
+                await _groupRepository.Create(Z, groupZPlayerIds);
+                var pDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
+                var cDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
+                var zDTO = _mapper.Map<GroupGetDetailsResponseDTO>(Z);
+                return new List<GroupGetDetailsResponseDTO> { pDTO, cDTO, zDTO };
             }
             else
             {
-                return new List<GroupGetDetailsResponseDTO> { P, C, Z, S };
+                await _groupRepository.Create(P, groupPPlayerIds);
+                await _groupRepository.Create(C, groupCPlayerIds);
+                await _groupRepository.Create(Z, groupZPlayerIds);
+                await _groupRepository.Create(S, groupSPlayerIds);
+                var pDTO = _mapper.Map<GroupGetDetailsResponseDTO>(P);
+                var cDTO = _mapper.Map<GroupGetDetailsResponseDTO>(C);
+                var zDTO = _mapper.Map<GroupGetDetailsResponseDTO>(Z);
+                var sDTO = _mapper.Map<GroupGetDetailsResponseDTO>(S);
+                return new List<GroupGetDetailsResponseDTO> { pDTO, cDTO, zDTO, sDTO };
             }
         }
         public int[][][] GetRoundRobin(int numberOfPlayers)

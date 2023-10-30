@@ -29,9 +29,9 @@ namespace RetroGamingTournament.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Tournament> Get(int id)
+        public async Task<Tournament> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Tournaments.FindAsync(id);
         }
 
         public Task<IEnumerable<Tournament>> GetAll()
