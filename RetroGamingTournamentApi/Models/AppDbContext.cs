@@ -20,6 +20,15 @@ namespace RetroGamingTournament.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Match>()
+            //    .HasOne(e => e.P1)
+            //    .WithMany()
+            //    .OnDelete(DeleteBehavior.ClientCascade); // <--
+
+            //modelBuilder.Entity<Match>()
+            //    .HasOne(e => e.P2)
+            //    .WithMany()
+            //    .OnDelete(DeleteBehavior.ClientCascade); // <--
             modelBuilder.Entity<Player>().HasData(
                 new { Id = 1, Name = "Boris", IsActive = true },
                 new { Id = 2, Name = "Bran", IsActive = true },
