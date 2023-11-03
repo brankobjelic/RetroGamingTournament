@@ -15,7 +15,6 @@ namespace RetroGamingTournament.Repositories
             var existingPlayers = await _context.Players.Where(p => playerIds.Contains(p.Id)).ToListAsync();
             existingPlayers = existingPlayers.OrderBy(p => playerIds.IndexOf(p.Id)).ToList();   //reorder to match the order of received list of playerIds
             group.Players = existingPlayers;
-
             for (int i = 0; i < roundRobinScheme.Length; i++)
             {
                 for (int j = 0; j < roundRobinScheme[i].Length; j++)
@@ -32,6 +31,7 @@ namespace RetroGamingTournament.Repositories
                         P2 = player2
                     };
                     await _context.Matches.AddAsync(match);
+                    await _context.SaveChangesAsync();
                     group.Matches.Add(match);
                 }
             }

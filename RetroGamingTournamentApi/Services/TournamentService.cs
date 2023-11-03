@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TournamentScheduling;
 using Group = RetroGamingTournament.Models.Group;
+using Match = RetroGamingTournament.Models.Match;
 
 namespace RetroGamingTournament.Services
 {
@@ -31,12 +32,16 @@ namespace RetroGamingTournament.Services
 
             Group P = new Group();
             P.Players = new List<Player>();
+            P.Matches = new List<Match>();
             Group C = new Group();
-            C.Players = new List<Player>(); 
+            C.Players = new List<Player>();
+            C.Matches = new List<Match>();
             Group Z = new Group();
-            Z.Players = new List<Player>(); 
+            Z.Players = new List<Player>();
+            Z.Matches = new List<Match>();
             Group S = new Group();
             S.Players = new List<Player>();
+            S.Matches = new List<Match>();
 
             P.Name = nameof(P);
             C.Name = nameof(C);

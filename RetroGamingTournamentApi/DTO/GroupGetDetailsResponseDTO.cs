@@ -8,5 +8,7 @@ namespace RetroGamingTournament.DTO
         public string Name { get; set; }
         public int NumberOfGroupContestants { get; set; }
         public ICollection<PlayerDTO> Players { get; set; }
+        public ICollection<MatchDetailsResponseDTO> Matches { get; set; }
+
     }
 }

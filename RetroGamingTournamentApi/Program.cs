@@ -4,6 +4,7 @@ using RetroGamingTournament.Mapping;
 using RetroGamingTournament.Models;
 using RetroGamingTournament.Repositories;
 using RetroGamingTournament.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
 
 });
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
 // Add services to the container.
 
