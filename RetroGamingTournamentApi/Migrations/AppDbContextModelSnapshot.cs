@@ -134,9 +134,31 @@ namespace RetroGamingTournament.Migrations
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<int>("P1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("P2Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PointsP1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PointsP2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ScoreP1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ScoreP2")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("P1Id");
+
+                    b.HasIndex("P2Id");
 
                     b.ToTable("Matches");
                 });
@@ -354,6 +376,22 @@ namespace RetroGamingTournament.Migrations
                     b.HasOne("RetroGamingTournament.Models.Group", null)
                         .WithMany("Matches")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("RetroGamingTournament.Models.Player", "P1")
+                        .WithMany()
+                        .HasForeignKey("P1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetroGamingTournament.Models.Player", "P2")
+                        .WithMany()
+                        .HasForeignKey("P2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("P1");
+
+                    b.Navigation("P2");
                 });
 
             modelBuilder.Entity("RetroGamingTournament.Models.Tournament", b =>
