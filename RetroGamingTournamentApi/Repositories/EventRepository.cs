@@ -30,14 +30,15 @@ namespace RetroGamingTournament.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Event> Get(int id)
+        public async Task<Event> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Event>> GetAll()
+        public async Task<IEnumerable<Event>> GetAll()
         {
-            throw new NotImplementedException();
+            var events = await _collection.AsNoTracking().ToListAsync();
+            return events;
         }
 
         public Task Update(Event ev)
