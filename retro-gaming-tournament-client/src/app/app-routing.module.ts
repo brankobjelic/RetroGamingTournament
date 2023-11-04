@@ -4,8 +4,10 @@ import { CreateTournamentComponent } from './create-tournament/create-tournament
 import { GamesComponent } from './games/games.component';
 import { PlayersComponent } from './players/players.component';
 import { GroupsComponent } from './groups/groups.component';
+import { GamingEventsComponent } from './gaming-events/gaming-events.component';
 
 const routes: Routes = [  { path: '', redirectTo: 'players', pathMatch: 'full'},
+{ path: 'gaming-events', component: GamingEventsComponent, pathMatch: 'full'},
 { path: 'players', component: PlayersComponent, pathMatch: 'full'},
 { path: 'games', component: GamesComponent, pathMatch: 'full'},
 { path: 'create-tournament', component: CreateTournamentComponent, pathMatch: 'full'},

@@ -32,6 +32,7 @@ export class CreateTournamentComponent {
   tournamentPlayers: Player[] = []
   arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   games : Game[] = []
+  numberOfPlayers!: number
 
   createTournamentForm = new FormGroup({
     game: new FormControl(),
@@ -75,7 +76,7 @@ export class CreateTournamentComponent {
     .subscribe(
       response => {
         console.log(response)
-        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response), game: JSON.stringify(this.createTournamentForm.value.game) }});
+        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response), game: JSON.stringify(this.createTournamentForm.value.game), numberOfPlayers: this.tournamentPlayers.length }});
       }, error => {
         console.error(error);
         // Handle any errors here

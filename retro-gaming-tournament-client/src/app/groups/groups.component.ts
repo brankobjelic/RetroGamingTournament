@@ -10,6 +10,7 @@ import { Game } from '../models/game.model';
 export class GroupsComponent {
   receivedData: any;
   game!: Game;
+  numberOfPlayers!: number
 
   @ViewChildren('P') groupPElementRefs!:QueryList<ElementRef>;
   @ViewChildren('PAudio') groupPAudioElementRefs!:QueryList<ElementRef>;
@@ -23,6 +24,7 @@ export class GroupsComponent {
   numberOfPlayersInGroup: number[] = []
   playersInOrderOfAppearance: ElementRef[] = []
   audioInOrderOfAppearance: ElementRef[] = []
+  announceFinished: boolean = false
 
 
   constructor(private route: ActivatedRoute) {}
@@ -31,7 +33,7 @@ export class GroupsComponent {
     this.route.queryParams.subscribe(params => {
       this.receivedData = JSON.parse(params['data']);
       this.game = JSON.parse(params['game'])
-      console.log(this.game)
+      this.numberOfPlayers = params['numberOfPlayers']
     });
 
   }
@@ -69,12 +71,13 @@ export class GroupsComponent {
           }
 
           index++;
-          setTimeout(showNextElement, 2000);
+          setTimeout(showNextElement, 50);
+        }
+        else{
+          this.announceFinished = true
         }
       };
-
-      setTimeout(showNextElement, 2000);
-  
+      setTimeout(showNextElement, 50); 
   }
   getAudioUrl(nameAudioFile: string) {
     if(nameAudioFile){

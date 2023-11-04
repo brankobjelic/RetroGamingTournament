@@ -20,7 +20,7 @@ export class GameService {
     return this.http.get<Game[]>(url, {responseType:'json'}).pipe(
       map(response => {
         response.forEach(element => {
-            this.games.push(new Game(element.id, element.name, element.bannerFile, element.numberOfPlayers))
+            this.games.push(new Game(element.id, element.name, element.bannerFile, element.gameType))
           });
        return this.games
       }),

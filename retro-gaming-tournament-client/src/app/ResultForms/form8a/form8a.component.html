@@ -1,0 +1,108 @@
+<div *ngFor="let group of rd; index as i">
+  <div *ngIf="group.groupPlayers.length === 4" class="resultDiv">
+    <ng-template ngFor let-day [ngForOf]="[0, 1, 2]" let-j="index">
+      <div class="resultDiv">
+        <table>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf4[day][0][0] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf4[day][0][0]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf4[day][0][1] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf4[day][0][1]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf4[day][1][0] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf4[day][1][0]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf4[day][1][1] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf4[day][1][1]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+        </table>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="group.groupPlayers.length === 3" class="resultDiv">
+    <ng-template ngFor let-day [ngForOf]="[0, 1, 2]" let-j="index">
+      <div class="resultDiv">
+        <table>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf3[day][0][0] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf3[day][0][0]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+          <tr>
+            <th ngClass="thead{{ colorGroupLetter[i] }}">
+              {{ colorGroupLetter[i] }}{{ roundRobinOf3[day][0][1] + 1 }}
+            </th>
+            <td class="tdName">
+              {{ group.groupPlayers[roundRobinOf3[day][0][1]].name }}
+            </td>
+            <td><input type="number" class="tdInput" /></td>
+          </tr>
+        </table>
+      </div>
+    </ng-template>
+
+    <!-- <br />
+
+<div class="resultDiv">
+  <table>
+    <thead class="theadC">
+      <tr>
+        <th colspan="3">Crvena grupa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="theadC">1</th>
+        <td class="tdName">{{ this.rd[1].groupPlayers[2].name }}</td>
+        <td class="tdName">5:4</td>
+      </tr>
+      <tr>
+        <th class="theadC">2</th>
+        <td class="tdName">{{ this.rd[1].groupPlayers[2].name }}</td>
+        <td class="tdName">5:4</td>
+      </tr>
+      <tr>
+        <th class="theadC">3</th>
+        <td class="tdName">{{ this.rd[1].groupPlayers[2].name }}</td>
+        <td>5:4</td>
+      </tr>
+      <tr>
+        <th class="theadC">4</th>
+        <td class="tdName">{{ this.rd[1].groupPlayers[2].name }}</td>
+        <td class="tdName">5:4</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+  </div>
+</div>

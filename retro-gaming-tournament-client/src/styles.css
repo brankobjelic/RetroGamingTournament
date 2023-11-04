@@ -7,7 +7,7 @@
     font-family: 'PressStart2P', sans-serif;
   }
 
-  button {
+  button, input {
     font-family: 'PressStart2P', sans-serif;
   }
 
@@ -19,3 +19,60 @@
     border-width: 3px;
     background-color: cyan;
   }
+
+
+  .tableDiv {
+    display: inline-block;
+    vertical-align:top;
+}
+
+table {
+    margin: 20px;
+    min-width: 200px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.theadP {
+    background-color: blue;
+    color: white;
+}
+
+.theadC {
+    background-color: red;
+    color: white;
+}
+
+.theadZ {
+    background-color: green;
+    color: white;
+}
+
+.theadS {
+    background-color: gray;
+    color: white;
+}
+
+td {
+    text-align: center;
+}
+
+tbody tr th {
+    width: 15px;
+}
+
+.tdInput {
+  max-width: 80px;
+  text-align: right;
+}
+
+.tdName {
+  min-width: 120px
+}
+
+.resultDiv {
+  display: inline-block;
+}
