@@ -9,6 +9,7 @@ namespace RetroGamingTournament.Models
         [StringLength(200)]
         public string Name { get; set; }
         public DateTime EventDate { get; set; }
+        public bool IsActive { get; set; }
         ICollection<Tournament> Tournaments { get; set; }
     }
 }
