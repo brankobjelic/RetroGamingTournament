@@ -8,11 +8,11 @@ import {
   DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
-import { Player } from '../models/player.model';
-import { PlayerService } from '../services/player.service';
-import { Game } from '../models/game.model';
-import { GameService } from '../services/game.service';
-import { TournamentService } from '../services/tournament.service';
+import { Player } from '../../models/player.model';
+import { PlayerService } from '../../services/player.service';
+import { Game } from '../../models/game.model';
+import { GameService } from '../../services/game.service';
+import { TournamentService } from '../../services/tournament.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';

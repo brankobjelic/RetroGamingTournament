@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateTournamentComponent } from './create-tournament/create-tournament.component';
-import { GamesComponent } from './games/games.component';
-import { PlayersComponent } from './players/players.component';
-import { GroupsComponent } from './groups/groups.component';
-import { GamingEventsComponent } from './gaming-events/gaming-events.component';
+import { CreateTournamentComponent } from './components/create-tournament/create-tournament.component';
+import { GamesComponent } from './components/games/games.component';
+import { PlayersComponent } from './components/players/players.component';
+import { GroupsComponent } from './components/groups/groups.component';
+import { GamingEventsComponent } from './components/gaming-events/gaming-events.component';
 
 const routes: Routes = [  { path: '', redirectTo: 'players', pathMatch: 'full'},
 { path: 'gaming-events', component: GamingEventsComponent, pathMatch: 'full'},

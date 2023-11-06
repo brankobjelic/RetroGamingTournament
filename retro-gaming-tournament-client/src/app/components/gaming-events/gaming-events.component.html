@@ -1,0 +1,16 @@
+<div *ngFor="let activeEvent of activeEvents">
+    <p>Aktivni događaji:</p>
+    <ul *ngFor="let activeEvent of activeEvents">
+        <li >              
+            {{activeEvent.name}}
+        </li>
+    </ul>
+</div>
+<div>
+    <p>Završeni događaji:</p>
+    <ul *ngFor="let inactiveEvent of inactiveEvents">
+        <li >              
+            {{inactiveEvent.name}}
+        </li>
+    </ul>
+</div>
