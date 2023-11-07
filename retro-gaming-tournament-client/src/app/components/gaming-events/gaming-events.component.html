@@ -1,4 +1,4 @@
-<div *ngFor="let activeEvent of activeEvents">
+<div *ngIf="activeEvents.length; else noActiveEvents">
     <p>Aktivni događaji:</p>
     <ul *ngFor="let activeEvent of activeEvents">
         <li >              
@@ -6,6 +6,14 @@
         </li>
     </ul>
 </div>
+<ng-template #noActiveEvents>
+    <p>Nema aktivnih događaja</p>
+    <button
+        (click)="onClick()"
+    >
+        + Kreiraj novi događaj
+    </button>
+</ng-template>
 <div>
     <p>Završeni događaji:</p>
     <ul *ngFor="let inactiveEvent of inactiveEvents">

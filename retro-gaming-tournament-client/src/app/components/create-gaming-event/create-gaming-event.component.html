@@ -1,0 +1,11 @@
+<div>
+    <form (ngSubmit)="onSubmit()">
+        <label for="name">
+            Unesi naziv događaja:</label>
+            <input type="text" id="name" [formControl]="name">       
+        <p>
+
+            <button type="submit">Pokreni događaj</button>
+        </p>
+    </form>
+</div>

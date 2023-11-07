@@ -1,0 +1,16 @@
+div {
+    margin-top: 30px;
+}
+form {
+    margin-top: 20px;
+    text-align: center;
+  }
+label {
+    font-size: 14px;
+}
+input {
+    padding: 10px 20px;
+}
+button {
+    padding: 10px 20px;
+}

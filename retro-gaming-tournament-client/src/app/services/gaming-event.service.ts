@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { GamingEvent } from '../models/gaming-event.model';
+import { CreateGamingEvent } from '../models/create-gaming-event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GamingEventService {
 
   constructor(private http: HttpClient) { }
 
-  getPlayers() : Observable<GamingEvent[]> {
+  getEvents() : Observable<GamingEvent[]> {
     this.events = []
     var url = 'http://localhost:5180/api/Events';
 
@@ -25,4 +26,15 @@ export class GamingEventService {
       }),
     );
   }
+
+  createEvent(gamingEvent: CreateGamingEvent) : Observable<boolean> {
+    var url = 'http://localhost:5180/api/Events';
+
+    return this.http.post<boolean>(url, gamingEvent).pipe(
+      map(response => {
+        return true
+      }),
+    );
+  }
+
 }

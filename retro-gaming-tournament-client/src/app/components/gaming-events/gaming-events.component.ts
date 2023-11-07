@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GamingEventService } from '../../services/gaming-event.service';
 import { GamingEvent } from '../../models/gaming-event.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gaming-events',
@@ -12,10 +13,10 @@ export class GamingEventsComponent {
   activeEvents: GamingEvent[] = []
   inactiveEvents: GamingEvent[] = []
 
-  constructor(private eventService: GamingEventService){}
+  constructor(private eventService: GamingEventService, private router: Router){}
 
   ngOnInit(){
-    this.eventService.getPlayers().subscribe({
+    this.eventService.getEvents().subscribe({
       next: (data) =>    {
         data.forEach(element => {
           if(element.isActive)
@@ -25,5 +26,9 @@ export class GamingEventsComponent {
         });
       }     
     })
+  }
+
+  onClick(){
+    this.router.navigate(['/create-gaming-event']);
   }
 }
