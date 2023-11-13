@@ -41,9 +41,11 @@ namespace RetroGamingTournament.Controllers
                 // Handle other exceptions
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred during event registration.");
             }
+
             try
             {
-                await _service.CreateAsync(ev);
+                var evDTO = await _service.CreateAsync(ev);
+                return Ok(evDTO);
             }
             catch (SqlException ex)
             {
@@ -55,7 +57,6 @@ namespace RetroGamingTournament.Controllers
                 // Handle other exceptions
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred during event registration.");
             }
-            return Ok();
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventGetDetailsResponseDTO>>> Get()

@@ -8,5 +8,7 @@ namespace RetroGamingTournament.Repositories
         public Task<IEnumerable<Tournament>> GetAll();
         public Task<Tournament> Get(int id);
         public Task Delete(Tournament tournament);
+        public Task<IEnumerable<Tournament>> GetByEventId(int id);
+
     }
 }

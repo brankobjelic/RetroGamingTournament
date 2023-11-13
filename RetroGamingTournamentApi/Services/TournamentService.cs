@@ -3,6 +3,7 @@ using RetroGamingTournament.DTO;
 using RetroGamingTournament.Extensions;
 using RetroGamingTournament.Models;
 using RetroGamingTournament.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TournamentScheduling;
@@ -212,6 +213,13 @@ namespace RetroGamingTournament.Services
         public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetByEventIdAsync(int id)
+        {
+            var tournaments = await _repository.GetByEventId(id);
+            IEnumerable<TournamentGetDetailsResponseDTO> tournamentsDTO = _mapper.Map<IEnumerable<Tournament>, IEnumerable<TournamentGetDetailsResponseDTO>>(tournaments);
+            return tournamentsDTO;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace RetroGamingTournament.Services
         {
             var eventEntity = _mapper.Map<Event>(ev);
             eventEntity.EventDate = DateTime.Now;
+            eventEntity.IsActive = true;
             try
             {
                 var result = await _eventRepository.Create(eventEntity);

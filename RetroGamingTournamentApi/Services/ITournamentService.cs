@@ -11,5 +11,7 @@ namespace RetroGamingTournament.Services
 
         public Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO);
         public int[][][] GetRoundRobin(int numberOfPlayers);
+        public Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetByEventIdAsync(int id);
+
     }
 }

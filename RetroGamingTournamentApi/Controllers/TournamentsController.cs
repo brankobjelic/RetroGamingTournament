@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RetroGamingTournament.DTO;
 using RetroGamingTournament.Services;
 
@@ -31,7 +32,7 @@ namespace RetroGamingTournament.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(TournamentCreateRequestDTO tournamentDTO)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -40,10 +41,18 @@ namespace RetroGamingTournament.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRoundRobin(int numberOfPlayers) 
+        public IActionResult GetRoundRobin(int numberOfPlayers)
         {
             var matches = _service.GetRoundRobin(numberOfPlayers);
             return Ok(matches);
+        }
+
+        [HttpGet("{eventId}")]
+        public async Task<ActionResult> GetByEventId(int eventId)
+        {
+            var tournaments = _service.GetByEventIdAsync(eventId);
+            return Ok(tournaments);
+
         }
     }
 }
