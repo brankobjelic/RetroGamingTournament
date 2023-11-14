@@ -50,7 +50,7 @@ namespace RetroGamingTournament.Controllers
         [HttpGet("{eventId}")]
         public async Task<ActionResult> GetByEventId(int eventId)
         {
-            var tournaments = _service.GetByEventIdAsync(eventId);
+            var tournaments = await _service.GetByEventIdAsync(eventId);
             return Ok(tournaments);
 
         }
