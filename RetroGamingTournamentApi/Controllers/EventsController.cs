@@ -64,5 +64,13 @@ namespace RetroGamingTournament.Controllers
             var events = await _service.GetAsync();
             return Ok(events);
         }
+
+        [HttpGet]
+        [Route("ActiveEvent")]
+        public async Task<ActionResult<EventGetDetailsResponseDTO>> GetActive()
+        {
+            var gamingEvent = await _service.GetActiveAsync();
+            return Ok(gamingEvent);
+        }
     }
 }

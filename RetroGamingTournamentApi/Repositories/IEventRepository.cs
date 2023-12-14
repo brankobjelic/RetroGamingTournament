@@ -10,5 +10,7 @@ namespace RetroGamingTournament.Repositories
         public Task Delete(Event ev);
         public Task Update(Event ev);
         public Task<bool> CheckNameExists(string name);
+        public Task<Event> GetActive();
+
     }
 }

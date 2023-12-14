@@ -45,5 +45,11 @@ namespace RetroGamingTournament.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Event> GetActive()
+        {
+            var activeEvent = await _collection.Where(e => e.IsActive).FirstAsync();
+            return activeEvent;
+        }
     }
 }

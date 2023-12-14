@@ -9,5 +9,7 @@ namespace RetroGamingTournament.Services
         public Task<EventGetDetailsResponseDTO> GetDetailsAsync(int id);
         public Task<bool> DeleteAsync(int id);
         public Task<bool> NameExists(EventCreateRequestDTO ev);
+        public Task<EventGetDetailsResponseDTO> GetActiveAsync();
+
     }
 }

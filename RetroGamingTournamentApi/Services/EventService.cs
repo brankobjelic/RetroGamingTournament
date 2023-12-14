@@ -41,6 +41,12 @@ namespace RetroGamingTournament.Services
             return _mapper.Map<IEnumerable<EventGetDetailsResponseDTO>>(result.ToList());
         }
 
+        public async Task<EventGetDetailsResponseDTO> GetActiveAsync()
+        {
+            var result = await _eventRepository.GetActive();
+            return _mapper.Map<EventGetDetailsResponseDTO>(result);
+        }
+
         public Task<EventGetDetailsResponseDTO> GetDetailsAsync(int id)
         {
             throw new NotImplementedException();
