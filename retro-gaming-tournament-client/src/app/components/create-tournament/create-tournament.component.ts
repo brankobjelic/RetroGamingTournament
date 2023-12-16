@@ -7,7 +7,7 @@ import {
   CdkDropList,
   DragDropModule,
 } from '@angular/cdk/drag-drop';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Player } from '../../models/player.model';
 import { PlayerService } from '../../services/player.service';
 import { Game } from '../../models/game.model';
@@ -17,13 +17,16 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { forkJoin, map, mergeAll, mergeMap, toArray } from 'rxjs';
+import { GamingEvent } from 'src/app/models/gaming-event.model';
+import { GamingEventService } from 'src/app/services/gaming-event.service';
+import { CreateTournament } from 'src/app/models/create-tournament.model';
 
 @Component({
   selector: 'app-create-tournament',
   templateUrl: './create-tournament.component.html',
   styleUrls: ['./create-tournament.component.css'],
   standalone: true,
-  imports: [CdkDropList, NgFor, CdkDrag, ReactiveFormsModule, DragDropModule]
+  imports: [CdkDropList, NgFor, NgIf, CdkDrag, ReactiveFormsModule, DragDropModule]
 })
 export class CreateTournamentComponent {
 
@@ -33,16 +36,24 @@ export class CreateTournamentComponent {
   arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   games : Game[] = []
   numberOfPlayers!: number
+  gamingEvent?: GamingEvent
+  tournamentToCreate?: CreateTournament
+  game?: Game
 
   createTournamentForm = new FormGroup({
     game: new FormControl(),
   })
 
-  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient, private gameService: GameService){}
+  constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient, private gameService: GameService, private gamingEventService: GamingEventService){}
 
  
 
   ngOnInit(){
+    this.gamingEventService.getActiveEvent().subscribe({
+      next: (data) => {
+        this.gamingEvent = data;
+      }
+    })
     this.playerService.getPlayers().subscribe({
       next: (data) =>    {
         this.players = data;
@@ -71,6 +82,9 @@ export class CreateTournamentComponent {
   }
   onSubmit(event: Event){
     event.preventDefault();
+    console.log(this.game)
+    this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.game!.id)
+    this.tournamentService.createTournament(this.tournamentToCreate).subscribe(resp => {console.log(resp)})
     console.log(this.tournamentPlayers)
     this.tournamentService.getGroups(this.tournamentPlayers)
     .subscribe(

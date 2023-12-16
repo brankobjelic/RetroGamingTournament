@@ -8,6 +8,7 @@ import { GamingEventsComponent } from './components/gaming-events/gaming-events.
 import { CreateGamingEventComponent } from './components/create-gaming-event/create-gaming-event.component';
 import { Tournament } from './models/tournament.model';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
+import { ActiveGamingEventComponent } from './components/active-gaming-event/active-gaming-event.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: 'players', pathMatch: 'full'},
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'create-tournament', component: CreateTournamentComponent, pathMatch: 'full'},
   { path: 'groups', component: GroupsComponent, pathMatch: 'full'},
   { path: 'create-gaming-event', component: CreateGamingEventComponent, pathMatch: 'full'},
-  { path: 'tournaments', component: TournamentsComponent, pathMatch: 'full'}
+  { path: 'tournaments', component: TournamentsComponent, pathMatch: 'full'},
+  { path: 'active-gaming-event/:id', component: ActiveGamingEventComponent },
+  { path: 'create-tournament/:eventId', component: CreateTournamentComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

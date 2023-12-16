@@ -1,0 +1,25 @@
+<h1>{{gamingEvent?.name}}</h1>
+<div *ngIf="activeTournaments.length; else noActiveTournaments">
+    <p>Aktivni turnir:</p>
+    <ul *ngFor="let activeTournament of activeTournaments">
+        <li >              
+            <a [routerLink]="['/tournaments', activeTournament.id]">{{activeTournament.game.name}}</a>
+        </li>
+    </ul>
+</div>
+<ng-template #noActiveTournaments>
+    <p>Nema aktivnih turnira</p>
+    <button
+        [routerLink]="['/create-tournament', gamingEventId]"
+    >
+        + Kreiraj novi turnir
+    </button>
+</ng-template>
+<div>
+    <p>Odigrani turniri:</p>
+    <ul *ngFor="let inactiveTournament of inactiveTournaments">
+        <li >              
+            {{inactiveTournament.game}}
+        </li>
+    </ul>
+</div>

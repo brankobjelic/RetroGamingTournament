@@ -10,6 +10,8 @@ import { CreateGamingEvent } from '../models/create-gaming-event.model';
 export class GamingEventService {
 
   events: GamingEvent[] = []
+  createdEvent!: any
+  activeEvent: any
 
   constructor(private http: HttpClient) { }
 
@@ -27,14 +29,18 @@ export class GamingEventService {
     );
   }
 
-  createEvent(gamingEvent: CreateGamingEvent) : Observable<boolean> {
+  createEvent(gamingEvent: CreateGamingEvent) : Observable<any> {
     var url = 'http://localhost:5180/api/Events';
 
-    return this.http.post<boolean>(url, gamingEvent).pipe(
-      map(response => {
-        return true
-      }),
-    );
+    this.createdEvent = this.http.post(url, gamingEvent)
+    return this.createdEvent
+  }
+
+  getActiveEvent() : Observable<GamingEvent>{
+    var url = 'http://localhost:5180/api/Events/ActiveEvent';
+
+    this.activeEvent = this.http.get<GamingEvent>(url, {responseType:'json'})
+    return this.activeEvent
   }
 
 }

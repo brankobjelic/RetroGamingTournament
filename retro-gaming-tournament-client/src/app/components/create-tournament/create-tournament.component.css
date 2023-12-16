@@ -117,4 +117,9 @@ form {
     background-color:chartreuse;
     padding: 10px 20px;
   }
+
+  h1{
+    text-align: center;
+    margin-top: 40px;
+  }
   

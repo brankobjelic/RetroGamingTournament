@@ -14,6 +14,7 @@ import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { GroupTypeAScoresComponent } from '../ResultForms/form8a/form8a.component';
 import { GamingEventsComponent } from './components/gaming-events/gaming-events.component';
 import { CreateGamingEventComponent } from './components/create-gaming-event/create-gaming-event.component';
+import { ActiveGamingEventComponent } from './components/active-gaming-event/active-gaming-event.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CreateGamingEventComponent } from './components/create-gaming-event/cre
     GroupsComponent,
     GroupTypeAScoresComponent,
     GamingEventsComponent,
-    CreateGamingEventComponent,  
+    CreateGamingEventComponent,
+    ActiveGamingEventComponent,  
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateGamingEvent } from 'src/app/models/create-gaming-event.model';
+import { GamingEvent } from 'src/app/models/gaming-event.model';
 import { GamingEventService } from 'src/app/services/gaming-event.service';
 
 @Component({
@@ -22,11 +23,12 @@ export class CreateGamingEventComponent {
     let gamingEvent: CreateGamingEvent = {name: eventName}
 
     this.gamingEventService.createEvent(gamingEvent).subscribe({
-      next: (data) => {
+      next: (data: GamingEvent) => {
         alert('event created')
-        this.router.navigate(['/tournaments']);
+        console.log(data)
+        this.router.navigate(['/active-gaming-event/', data.id]);
       },
-      error: (data) => {
+      error: () => {
         alert('event not created')
       }
     })

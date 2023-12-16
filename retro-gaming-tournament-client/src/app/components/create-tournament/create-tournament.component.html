@@ -1,8 +1,9 @@
+<h1>{{gamingEvent?.name}}</h1>
 <form [formGroup]="createTournamentForm">
   <div>
     <select formControlName="game">
       <option [ngValue]="null" disabled>--Izaberi igru--</option>
-      <option *ngFor="let game of games" [ngValue]="game">
+      <option *ngFor="let game of games" (ngValue)="game">
         {{ game.name }}
       </option>
     </select>

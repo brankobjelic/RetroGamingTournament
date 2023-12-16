@@ -2,7 +2,7 @@
     <p>Aktivni događaji:</p>
     <ul *ngFor="let activeEvent of activeEvents">
         <li >              
-            {{activeEvent.name}}
+            <a [routerLink]="['/active-gaming-event', activeEvent.id]">{{activeEvent.name}}</a>
         </li>
     </ul>
 </div>
