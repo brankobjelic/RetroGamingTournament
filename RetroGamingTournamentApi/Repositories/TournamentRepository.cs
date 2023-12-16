@@ -41,7 +41,7 @@ namespace RetroGamingTournament.Repositories
 
         public async Task<IEnumerable<Tournament>> GetByEventId(int id)
         {
-            var tournamentList = await _context.Tournaments.Where(x => x.EventId == id).AsNoTracking().ToListAsync();
+            var tournamentList = await _context.Tournaments.Where(x => x.EventId == id).Include(x => x.Game).Include(x => x.Event).AsNoTracking().ToListAsync();
             return tournamentList;
         }
     }
