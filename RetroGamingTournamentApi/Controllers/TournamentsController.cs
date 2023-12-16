@@ -37,7 +37,7 @@ namespace RetroGamingTournament.Controllers
                 return BadRequest();
             }
             var tournamentDetailsDTO = await _service.CreateAsync(tournamentDTO);
-            return Ok(tournamentDTO);
+            return Ok(tournamentDetailsDTO);
         }
 
         [HttpGet]
