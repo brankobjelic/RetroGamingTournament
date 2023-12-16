@@ -194,6 +194,7 @@ namespace RetroGamingTournament.Services
         public async Task<TournamentGetDetailsResponseDTO> CreateAsync(TournamentCreateRequestDTO tournamentDTO)
         {
             var tournamentEntity = _mapper.Map<Tournament>(tournamentDTO);
+            tournamentEntity.IsActive = true;
             await _repository.Create(tournamentEntity);
             var tournamentDetailsDTO = _mapper.Map<TournamentGetDetailsResponseDTO>(tournamentEntity);
             return tournamentDetailsDTO;
