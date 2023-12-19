@@ -6,10 +6,10 @@ namespace RetroGamingTournament.DTO
     {
         public int Id { get; set; }
         public int EventId { get; set; }
-        public Event Event { get; set; }
+        public string EventName { get; set; }
         public int GameId { get; set; }
-        public Game Game { get; set; }
+        public string GameName { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<Stage> Stages { get; set; }
+        //public ICollection<Stage> Stages { get; set; }
     }
 }

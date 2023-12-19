@@ -4,7 +4,7 @@ namespace RetroGamingTournament.Services
 {
     public interface ITournamentService
     {
-        public Task<TournamentGetDetailsResponseDTO> CreateAsync(TournamentCreateRequestDTO tournamentDTO);
+        public TournamentGetDetailsResponseDTO Create(TournamentCreateRequestDTO tournamentDTO);
         public Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetAsync();
         public Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id);
         public Task<bool> DeleteAsync(int id);

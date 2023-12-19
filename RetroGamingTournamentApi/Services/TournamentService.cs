@@ -191,14 +191,22 @@ namespace RetroGamingTournament.Services
             return schedule;
         }
 
-        public async Task<TournamentGetDetailsResponseDTO> CreateAsync(TournamentCreateRequestDTO tournamentDTO)
+        public TournamentGetDetailsResponseDTO Create(TournamentCreateRequestDTO tournamentDTO)
         {
             var tournamentEntity = _mapper.Map<Tournament>(tournamentDTO);
             tournamentEntity.IsActive = true;
-            await _repository.Create(tournamentEntity);
-            var tournamentDetailsDTO = _mapper.Map<TournamentGetDetailsResponseDTO>(tournamentEntity);
+            var createdTournament = _repository.Create(tournamentEntity);
+            var tournamentDetailsDTO = _mapper.Map<TournamentGetDetailsResponseDTO>(createdTournament);
+            //var tournamentDetailsDTO = new TournamentGetDetailsResponseDTO()
+            //{
+            //    Id = createdTournament.Id,
+            //    EventId = createdTournament.EventId,
+            //    EventName = createdTournament.Event.Name,
+            //    GameId = createdTournament.GameId,
+            //    GameName = "game1",
+            //    IsActive = true,        
+            //};
             return tournamentDetailsDTO;
-
         }
 
         public Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetAsync()
@@ -206,9 +214,11 @@ namespace RetroGamingTournament.Services
             throw new NotImplementedException();
         }
 
-        public Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id)
+        public async Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            var tournament = await _repository.Get(id);
+            TournamentGetDetailsResponseDTO tournamentDTO = _mapper.Map<Tournament, TournamentGetDetailsResponseDTO>(tournament); 
+            return tournamentDTO;
         }
 
         public Task<bool> DeleteAsync(int id)

@@ -10,9 +10,9 @@ namespace RetroGamingTournament.Repositories
         {
             _context = appDbContext;
         }
-        public async Task<Tournament> Create(Tournament tournament)
+        public Tournament Create(Tournament tournament)
         {
-            await _context.AddAsync(tournament);
+            _context.Add(tournament);
             try
             {
                 _context.SaveChanges();
@@ -21,6 +21,7 @@ namespace RetroGamingTournament.Repositories
             {
                 throw;
             }
+            tournament = _context.Tournaments.Include(t => t.Event).Include(t => t.Game).Single(t => t.Id == tournament.Id);
             return tournament;
         }
 

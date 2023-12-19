@@ -32,7 +32,7 @@ namespace RetroGamingTournament.Repositories
 
         public async Task<Event> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Events.FindAsync(id);
         }
 
         public async Task<IEnumerable<Event>> GetAll()
