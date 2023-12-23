@@ -17,11 +17,13 @@ namespace RetroGamingTournament.Services
         private readonly IMapper _mapper;
         private readonly ITournamentRepository _repository;
         private readonly IGroupRepository _groupRepository;
-        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository, IGroupRepository groupRepository)
+        private readonly IStageRepository _stageRepository;
+        public TournamentService(IMapper mapper, ITournamentRepository tournamentRepository, IGroupRepository groupRepository, IStageRepository stageRepository)
         {
             _mapper = mapper;
             _repository = tournamentRepository;
             _groupRepository = groupRepository;
+            _stageRepository = stageRepository;
         }
 
         public async Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO)
@@ -29,6 +31,16 @@ namespace RetroGamingTournament.Services
             if (drawRequestDTO.TournamentPlayersIds.Count() < 8 || drawRequestDTO.TournamentPlayersIds.Count() > 16)
             {
                 return null;
+            }
+
+            Tournament tournament = await _repository.Get(drawRequestDTO.TournamentId);
+            IEnumerable<Stage> stages = await _stageRepository.GetAll();
+            if (tournament.Game.GameType.Equals("A"))
+            {
+                if (drawRequestDTO.TournamentPlayersIds.Count() == 8)
+                {
+                    tournament.Stages = new List<Stage>() { };
+                }
             }
 
             Group P = new Group();
@@ -191,10 +203,42 @@ namespace RetroGamingTournament.Services
             return schedule;
         }
 
-        public TournamentGetDetailsResponseDTO Create(TournamentCreateRequestDTO tournamentDTO)
+        public async Task<TournamentGetDetailsResponseDTO> Create(TournamentCreateRequestDTO tournamentDTO)
         {
+            IEnumerable<Stage> predefinedStages = new List<Stage>();
+            predefinedStages = await _stageRepository.GetAll();
+            var groupStage = predefinedStages.FirstOrDefault(s => s.Name == "GroupStage");
+            var last8 = predefinedStages.FirstOrDefault(s => s.Name == "Last8");
+            var semiFinal = predefinedStages.FirstOrDefault(s => s.Name == "SemiFinal");
+            var final = predefinedStages.FirstOrDefault(s => s.Name == "Final");
+            var thirdPlaceMatch = predefinedStages.FirstOrDefault(s => s.Name == "ThirdPlaceMatch");
+
+            var numberOfPlayers = tournamentDTO.TournamentPlayersIds.Count();
+
             var tournamentEntity = _mapper.Map<Tournament>(tournamentDTO);
             tournamentEntity.IsActive = true;
+            tournamentEntity.Stages = new List<Stage>();
+            if(tournamentEntity.Game.GameType.Equals("A"))
+            {
+                switch (numberOfPlayers)
+                {
+                    case 8:
+                    case 9:
+                        tournamentEntity.Stages.Add(groupStage);
+                        tournamentEntity.Stages.Add(last8);
+                        tournamentEntity.Stages.Add(semiFinal);
+                        tournamentEntity.Stages.Add(thirdPlaceMatch);
+                        tournamentEntity.Stages.Add(final);
+                        break;
+                    case 10:
+                        tournamentEntity.Stages.Add(groupStage);
+                        tournamentEntity.Stages.Add(last8);
+                        tournamentEntity.Stages.Add(semiFinal);
+                        tournamentEntity.Stages.Add(thirdPlaceMatch);
+                        tournamentEntity.Stages.Add(final);
+                        break;
+                }
+            }
             var createdTournament = _repository.Create(tournamentEntity);
             var tournamentDetailsDTO = _mapper.Map<TournamentGetDetailsResponseDTO>(createdTournament);
             //var tournamentDetailsDTO = new TournamentGetDetailsResponseDTO()

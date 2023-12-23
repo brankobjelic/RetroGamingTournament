@@ -37,6 +37,21 @@ namespace RetroGamingTournament.Migrations
                     b.ToTable("GroupPlayer");
                 });
 
+            modelBuilder.Entity("PlayerTournament", b =>
+                {
+                    b.Property<int>("PlayersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TournamentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlayersId", "TournamentsId");
+
+                    b.HasIndex("TournamentsId");
+
+                    b.ToTable("PlayerTournament");
+                });
+
             modelBuilder.Entity("RetroGamingTournament.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -307,6 +322,16 @@ namespace RetroGamingTournament.Migrations
                         {
                             Id = 5,
                             Name = "ThirdPlaceMatch"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "RankingPlay5-8"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "RankingPlay9-10"
                         });
                 });
 
@@ -362,6 +387,21 @@ namespace RetroGamingTournament.Migrations
                     b.HasOne("RetroGamingTournament.Models.Player", null)
                         .WithMany()
                         .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PlayerTournament", b =>
+                {
+                    b.HasOne("RetroGamingTournament.Models.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetroGamingTournament.Models.Tournament", null)
+                        .WithMany()
+                        .HasForeignKey("TournamentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

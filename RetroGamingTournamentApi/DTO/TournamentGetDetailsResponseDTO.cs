@@ -11,5 +11,6 @@ namespace RetroGamingTournament.DTO
         public string GameName { get; set; }
         public bool IsActive { get; set; }
         //public ICollection<Stage> Stages { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }
