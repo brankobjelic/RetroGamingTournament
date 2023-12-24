@@ -48,13 +48,13 @@ namespace RetroGamingTournament.Models
                 new { Id = 2, Name = "Micro Machines", GameType = 'B'}
             );
             modelBuilder.Entity<Stage>().HasData(
-                new { Id = 1, Name = "GroupStage"},
-                new { Id = 2, Name = "Last8"},
-                new { Id = 3, Name = "Last4"},
-                new { Id = 4, Name = "Final"},
-                new { Id = 5, Name = "ThirdPlaceMatch"},
-                new { Id = 6, Name = "RankingPlay5-8"},
-                new { Id = 7, Name = "RankingPlay9-10"}
+                new { Id = 1, Name = "GroupStage" },
+                new { Id = 2, Name = "Last8" },
+                new { Id = 3, Name = "Last4" },
+                new { Id = 4, Name = "Final" },
+                new { Id = 5, Name = "ThirdPlaceMatch" },
+                new { Id = 6, Name = "RankingPlay5-8" },
+                new { Id = 7, Name = "RankingPlay9-10" }
             );
         }
     }

@@ -10,7 +10,7 @@ namespace RetroGamingTournament.Models
         public int GameId { get; set; }
         public virtual Game Game { get; set; }
         public ICollection<Player> Players { get; set; }
-        public ICollection<Stage> Stages { get; set; }
+        public virtual ICollection<Stage> Stages { get; set; }
         public ICollection<Group> Groups { get; set; }
     }
 }

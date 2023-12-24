@@ -30,13 +30,13 @@ namespace RetroGamingTournament.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(TournamentCreateRequestDTO tournamentDTO)
+        public async Task<ActionResult> Post(TournamentCreateRequestDTO tournamentDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var tournamentDetailsDTO = _service.Create(tournamentDTO);
+            var tournamentDetailsDTO = await _service.Create(tournamentDTO);
             return CreatedAtAction("Get", new {id = tournamentDetailsDTO.Id}, tournamentDetailsDTO);
         }
 

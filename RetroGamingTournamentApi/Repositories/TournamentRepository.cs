@@ -10,12 +10,17 @@ namespace RetroGamingTournament.Repositories
         {
             _context = appDbContext;
         }
-        public Tournament Create(Tournament tournament)
+        public async Task<Tournament> Create(Tournament tournament)
         {
-            _context.Add(tournament);
+            List<Stage> tournamentStages = tournament.Stages.ToList();
+            foreach (Stage stage in tournamentStages)
+            {
+                _context.Attach(stage); //attaching the existing stages to the context rather than creating new instances
+            }
+            await _context.Tournaments.AddAsync(tournament);
             try
             {
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
