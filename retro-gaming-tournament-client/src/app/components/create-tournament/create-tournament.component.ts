@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -38,11 +38,11 @@ export class CreateTournamentComponent {
   numberOfPlayers!: number
   gamingEvent?: GamingEvent
   tournamentToCreate?: CreateTournament
-  game?: Game
-
-  createTournamentForm = new FormGroup({
+  createTournamentForm: FormGroup = new FormGroup({
     game: new FormControl(),
   })
+
+
 
   constructor(private playerService: PlayerService, private tournamentService: TournamentService, private router: Router, private http: HttpClient, private gameService: GameService, private gamingEventService: GamingEventService){}
 
@@ -82,20 +82,22 @@ export class CreateTournamentComponent {
   }
   onSubmit(event: Event){
     event.preventDefault();
-    console.log(this.game)
-    this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.game!.id)
+    console.log(this.createTournamentForm!.value)
+    this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.createTournamentForm.get('game')!.value)
+    console.log(this.tournamentToCreate)
+
     this.tournamentService.createTournament(this.tournamentToCreate).subscribe(resp => {console.log(resp)})
-    console.log(this.tournamentPlayers)
-    this.tournamentService.getGroups(this.tournamentPlayers)
-    .subscribe(
-      response => {
-        console.log(response)
-        this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response), game: JSON.stringify(this.createTournamentForm.value.game), numberOfPlayers: this.tournamentPlayers.length }});
-      }, error => {
-        console.error(error);
-        // Handle any errors here
-      }
-    )
+    // console.log(this.tournamentPlayers)
+    // this.tournamentService.getGroups(this.tournamentPlayers)
+    // .subscribe(
+    //   response => {
+    //     console.log(response)
+    //     this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(response), game: JSON.stringify(this.createTournamentForm.value.game), numberOfPlayers: this.tournamentPlayers.length }});
+    //   }, error => {
+    //     console.error(error);
+    //     // Handle any errors here
+    //   }
+    // )
 
   }
 }

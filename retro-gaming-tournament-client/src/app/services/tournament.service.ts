@@ -36,7 +36,7 @@ export class TournamentService {
     return this.http.get<Tournament[]>(url, {responseType:'json'}).pipe(
       map(response => {
         response.forEach(element => {
-          this.tournaments.push(new Tournament(element.id, element.isActive, element.event, element.game))
+          this.tournaments.push(new Tournament(element.id, element.isActive, element.eventId, element.eventName, element.gameId, element.gameName))
         })
         return this.tournaments
       })

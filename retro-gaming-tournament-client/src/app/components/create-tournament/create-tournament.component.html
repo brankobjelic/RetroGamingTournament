@@ -3,7 +3,7 @@
   <div>
     <select formControlName="game">
       <option [ngValue]="null" disabled>--Izaberi igru--</option>
-      <option *ngFor="let game of games" (ngValue)="game">
+      <option *ngFor="let game of games" [ngValue]="game.id">
         {{ game.name }}
       </option>
     </select>
