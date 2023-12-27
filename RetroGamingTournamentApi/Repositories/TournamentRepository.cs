@@ -33,14 +33,6 @@ namespace RetroGamingTournament.Repositories
                 throw;
             }
 
-            //if (tournament.Groups != null)
-            //{
-            //    List<Group> tournamentGroups = tournament.Groups.ToList();
-            //    foreach (Group group in tournamentGroups)
-            //    {
-            //        _context.Attach(group);
-            //    }
-            //}
             if (tournament.Groups != null)
             {
                 List<Group> tournamentGroups = tournament.Groups.ToList();
