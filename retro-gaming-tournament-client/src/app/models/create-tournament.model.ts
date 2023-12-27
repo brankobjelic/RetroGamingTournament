@@ -1,11 +1,11 @@
 export class CreateTournament {
 
-    gamingEventId?: number
+    eventId?: number
     gameId?: number
 
-    constructor(gamingEventId: number, gameId: number)
+    constructor(eventId: number, gameId: number)
     {
-        this.gamingEventId = gamingEventId
+        this.eventId = eventId
         this.gameId = gameId
     }
 }

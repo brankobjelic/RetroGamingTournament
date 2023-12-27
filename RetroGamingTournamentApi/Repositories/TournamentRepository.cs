@@ -12,15 +12,39 @@ namespace RetroGamingTournament.Repositories
         }
         public async Task<Tournament> Create(Tournament tournament)
         {
-            await _context.AddAsync(tournament);
+            List<Stage> tournamentStages = tournament.Stages.ToList();
+            foreach (Stage stage in tournamentStages)
+            {
+                _context.Attach(stage); //attaching the existing stages to the context rather than creating new instances
+            }
+            List<Player> tournamentPlayers = tournament.Players.ToList();
+            foreach (Player player in tournamentPlayers)
+            {
+                _context.Attach(player);
+            }
+
+            await _context.Tournaments.AddAsync(tournament);
             try
             {
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 throw;
             }
+
+            if (tournament.Groups != null)
+            {
+                List<Group> tournamentGroups = tournament.Groups.ToList();
+                foreach (Group group in tournamentGroups)
+                {
+                    group.TournamentId = tournament.Id;
+                    group.Tournament = tournament;
+                    _context.Attach(group);
+                }
+                await _context.SaveChangesAsync();
+            }
+            tournament = _context.Tournaments.Include(t => t.Event).Include(t => t.Game).Single(t => t.Id == tournament.Id);
             return tournament;
         }
 

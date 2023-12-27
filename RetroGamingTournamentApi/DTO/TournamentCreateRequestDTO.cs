@@ -9,5 +9,6 @@ namespace RetroGamingTournament.DTO
         public int EventId { get; set; }
         [Required]
         public int GameId { get; set; }
+        public List<int> TournamentPlayersIds { get; set; }
     }
 }

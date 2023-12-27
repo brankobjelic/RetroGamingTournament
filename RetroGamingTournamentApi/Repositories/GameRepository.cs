@@ -22,9 +22,10 @@ namespace RetroGamingTournament.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Game> Get(int id)
+        public async Task<Game> Get(int id)
         {
-            throw new NotImplementedException();
+            var game = await _context.Games.Include(x => x.Tournaments).FirstOrDefaultAsync(x => x.Id == id);
+            return game;
         }
 
         public async Task<IEnumerable<Game>> GetAll()

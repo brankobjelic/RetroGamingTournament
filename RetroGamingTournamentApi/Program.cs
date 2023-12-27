@@ -43,6 +43,8 @@ builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IStageRepository, StageRepository>();
+
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllers();

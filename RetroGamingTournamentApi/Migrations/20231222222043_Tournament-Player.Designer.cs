@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RetroGamingTournament.Models;
 
@@ -11,9 +12,10 @@ using RetroGamingTournament.Models;
 namespace RetroGamingTournament.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222222043_Tournament-Player")]
+    partial class TournamentPlayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,26 +324,6 @@ namespace RetroGamingTournament.Migrations
                         {
                             Id = 5,
                             Name = "ThirdPlaceMatch"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "RankingPlay5-8"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "RankingPlay9-10"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "RankingPlay9-11"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "RankingPlay9-12"
                         });
                 });
 

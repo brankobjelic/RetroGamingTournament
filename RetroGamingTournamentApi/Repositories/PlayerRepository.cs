@@ -23,7 +23,7 @@ namespace RetroGamingTournament.Repositories
 
         public Task<Player> Get(int id)
         {
-            return _collection.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return _collection.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Player>> GetAll()

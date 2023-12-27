@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'create-tournament', component: CreateTournamentComponent, pathMatch: 'full'},
   { path: 'groups', component: GroupsComponent, pathMatch: 'full'},
   { path: 'create-gaming-event', component: CreateGamingEventComponent, pathMatch: 'full'},
-  { path: 'tournaments', component: TournamentsComponent, pathMatch: 'full'},
+  { path: 'tournaments/:id', component: TournamentsComponent},
   { path: 'active-gaming-event/:id', component: ActiveGamingEventComponent },
   { path: 'create-tournament/:eventId', component: CreateTournamentComponent }
 ];

@@ -3,7 +3,7 @@
     <p>Aktivni turnir:</p>
     <ul *ngFor="let activeTournament of activeTournaments">
         <li >              
-            <a [routerLink]="['/tournaments', activeTournament.id]">{{activeTournament.game.name}}</a>
+            <a [routerLink]="['/tournaments', activeTournament.id]">{{activeTournament.gameName}}</a>
         </li>
     </ul>
 </div>
@@ -19,7 +19,7 @@
     <p>Odigrani turniri:</p>
     <ul *ngFor="let inactiveTournament of inactiveTournaments">
         <li >              
-            {{inactiveTournament.game}}
+            {{inactiveTournament.gameName}}
         </li>
     </ul>
 </div>
