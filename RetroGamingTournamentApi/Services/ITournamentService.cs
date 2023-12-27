@@ -1,4 +1,5 @@
 ﻿using RetroGamingTournament.DTO;
+using RetroGamingTournament.Models;
 
 namespace RetroGamingTournament.Services
 {
@@ -9,7 +10,7 @@ namespace RetroGamingTournament.Services
         public Task<TournamentGetDetailsResponseDTO> GetDetailsAsync(int id);
         public Task<bool> DeleteAsync(int id);
 
-        public Task<IEnumerable<GroupGetDetailsResponseDTO>> GroupsGetDetails(DrawRequestDTO drawRequestDTO);
+        public Task<IEnumerable<Group>> CreateTournamentGroups(ICollection<int> tournamentPlayersIds);
         public int[][][] GetRoundRobin(int numberOfPlayers);
         public Task<IEnumerable<TournamentGetDetailsResponseDTO>> GetByEventIdAsync(int id);
 

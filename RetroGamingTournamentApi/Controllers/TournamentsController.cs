@@ -17,19 +17,6 @@ namespace RetroGamingTournament.Controllers
         }
 
         [HttpPost]
-        [Route("Draw")]
-        public async Task<ActionResult> Draw(DrawRequestDTO drawRequestDTO)
-        {
-            if (drawRequestDTO == null)
-            {
-                return BadRequest();
-            }
-
-            var groups = await _service.GroupsGetDetails(drawRequestDTO);
-            return Ok(groups);
-        }
-
-        [HttpPost]
         public async Task<ActionResult> Post(TournamentCreateRequestDTO tournamentDTO)
         {
             if (!ModelState.IsValid)
@@ -38,14 +25,6 @@ namespace RetroGamingTournament.Controllers
             }
             var tournamentDetailsDTO = await _service.Create(tournamentDTO);
             return CreatedAtAction("Get", new {id = tournamentDetailsDTO.Id}, tournamentDetailsDTO);
-        }
-
-        [HttpGet]
-        [Route("RoundRobin")]
-        public IActionResult GetRoundRobin(int numberOfPlayers)
-        {
-            var matches = _service.GetRoundRobin(numberOfPlayers);
-            return Ok(matches);
         }
 
         [HttpGet("{eventId}")]
