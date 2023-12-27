@@ -332,6 +332,16 @@ namespace RetroGamingTournament.Migrations
                         {
                             Id = 7,
                             Name = "RankingPlay9-10"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "RankingPlay9-11"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "RankingPlay9-12"
                         });
                 });
 

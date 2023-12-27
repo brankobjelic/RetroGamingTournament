@@ -54,7 +54,9 @@ namespace RetroGamingTournament.Models
                 new { Id = 4, Name = "Final" },
                 new { Id = 5, Name = "ThirdPlaceMatch" },
                 new { Id = 6, Name = "RankingPlay5-8" },
-                new { Id = 7, Name = "RankingPlay9-10" }
+                new { Id = 7, Name = "RankingPlay9-10" },
+                new { Id = 8, Name = "RankingPlay9-11" },
+                new { Id = 9, Name = "RankingPlay9-12" }
             );
         }
     }
