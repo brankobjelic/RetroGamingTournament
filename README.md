@@ -6,7 +6,7 @@ Some tournaments have a group stage, with groups of 3–4 participants, where ev
 
 Other tournaments have elimination rounds only.
 
-Some games, like Bomberman and Micro Machines, are played by four players simultaneously, while the majority of games are played by two players at a time.
+Some games, like Mega Bomberman and Micro Machines, are played by four players simultaneously, while the majority of games are played by two players at a time.
 
 Some other games include Mortal Kombat 3, Street Fighter II, Sensible Soccer, NBA Jam, R'n'R Racing, etc.
 
