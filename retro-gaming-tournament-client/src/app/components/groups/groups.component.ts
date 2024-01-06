@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../models/game.model';
 
@@ -8,10 +8,12 @@ import { Game } from '../../models/game.model';
   styleUrls: ['./groups.component.css']
 })
 export class GroupsComponent {
-  receivedData: any;
+
+  //receivedData: any;
   game!: Game;
   numberOfPlayers!: number
 
+  @Input() receivedData: any
   @ViewChildren('P') groupPElementRefs!:QueryList<ElementRef>;
   @ViewChildren('PAudio') groupPAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('C') groupCElementRefs!:QueryList<ElementRef>;
@@ -32,8 +34,8 @@ export class GroupsComponent {
   ngOnInit(): void{
     this.route.queryParams.subscribe(params => {
       this.receivedData = JSON.parse(params['data']);
-      this.game = JSON.parse(params['game'])
-      this.numberOfPlayers = params['numberOfPlayers']
+      //this.game = JSON.parse(params['game'])
+      //this.numberOfPlayers = params['numberOfPlayers']
     });
 
   }

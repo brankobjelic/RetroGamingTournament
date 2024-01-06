@@ -1,5 +1,5 @@
 <div style="margin-top: 50px; text-align: center;">
-  <div class="tableDiv" *ngIf="receivedData[0]">
+  <div class="tableDiv" *ngIf="receivedData.groups[0]">
     <table>
       <thead class="theadP">
         <tr>
@@ -7,7 +7,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let player of receivedData[0].groupPlayers; index as i">
+        <tr *ngFor="let player of receivedData.groups[0].players; index as i">
           <th class="theadP">P{{ i + 1 }}</th>
           <td ><span #P style="display: none;">{{player.name}}</span></td>
           <audio #PAudio type="audio/mpeg"  [src]="getAudioUrl(player.nameAudioFile)" [muted]="false"></audio>
@@ -15,7 +15,7 @@
       </tbody>
     </table>
   </div>
-  <div class="tableDiv" *ngIf="receivedData[1]">
+  <div class="tableDiv" *ngIf="receivedData.groups[1]">
     <table>
       <thead class="theadC">
         <tr>
@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let player of receivedData[1].groupPlayers; index as i">
+        <tr *ngFor="let player of receivedData.groups[1].players; index as i">
           <th class="theadC">C{{ i + 1 }}</th>
           <td ><span #C style="display: none;">{{player.name}}</span></td>
           <audio #CAudio type="audio/mpeg"  [src]="getAudioUrl(player.nameAudioFile)"  [muted]="false"></audio>
@@ -31,7 +31,7 @@
       </tbody>
     </table>
   </div>
-  <div class="tableDiv" *ngIf="receivedData[2]">
+  <div class="tableDiv" *ngIf="receivedData.groups[2]">
     <table>
       <thead class="theadZ">
         <tr>
@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let player of receivedData[2].groupPlayers; index as i">
+        <tr *ngFor="let player of receivedData.groups[2].players; index as i">
           <th class="theadZ">Z{{ i + 1 }}</th>
           <td ><span #Z style="display: none;">{{player.name}}</span></td>
           <audio #ZAudio type="audio/mpeg"  [src]="getAudioUrl(player.nameAudioFile)"  [muted]="false"></audio>
@@ -47,7 +47,7 @@
       </tbody>
     </table>
   </div>
-  <div class="tableDiv" *ngIf="receivedData[3]">
+  <div class="tableDiv" *ngIf="receivedData.groups[3]">
     <table>
       <thead class="theadS">
         <tr>
@@ -55,7 +55,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let player of receivedData[3].groupPlayers; index as i">
+        <tr *ngFor="let player of receivedData.groups[3].players; index as i">
           <th class="theadS">S{{ i + 1 }}</th>
           <td ><span #S style="display: none;">{{player.name}}</span></td>
           <audio #SAudio type="audio/mpeg"  [src]="getAudioUrl(player.nameAudioFile)"  [muted]="false"></audio>

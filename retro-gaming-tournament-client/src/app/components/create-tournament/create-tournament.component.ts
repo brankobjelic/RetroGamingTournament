@@ -33,6 +33,7 @@ export class CreateTournamentComponent {
   //createTournamentForm!: FormGroup
   players : Player[] = []
   tournamentPlayers: Player[] = []
+  tournamentPlayersIds: number[] = []
   arr : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   games : Game[] = []
   numberOfPlayers!: number
@@ -82,11 +83,17 @@ export class CreateTournamentComponent {
   }
   onSubmit(event: Event){
     event.preventDefault();
+    this.tournamentPlayers.forEach(item => {
+      this.tournamentPlayersIds.push(item.id)
+    })
     console.log(this.createTournamentForm!.value)
-    this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.createTournamentForm.get('game')!.value)
+    this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.createTournamentForm.get('game')!.value, this.tournamentPlayersIds)
     console.log(this.tournamentToCreate)
-
-    this.tournamentService.createTournament(this.tournamentToCreate).subscribe(resp => {console.log(resp)})
+    this.tournamentService.createTournament(this.tournamentToCreate).subscribe(resp => {
+      console.log(resp)
+      this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(resp)}});
+    })
+    //this.tournamentPlayersIds = []
     // console.log(this.tournamentPlayers)
     // this.tournamentService.getGroups(this.tournamentPlayers)
     // .subscribe(
