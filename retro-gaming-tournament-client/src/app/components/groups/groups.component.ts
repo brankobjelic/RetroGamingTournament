@@ -1,6 +1,9 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren, Input } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren, Input, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../models/game.model';
+import { Tournament } from 'src/app/models/tournament.model';
+import { Observable } from 'rxjs';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
   selector: 'app-groups',
@@ -13,7 +16,11 @@ export class GroupsComponent {
   game!: Game;
   numberOfPlayers!: number
 
-  @Input() receivedData: any
+  //@Input() receivedData: any
+  @Input() tournamentId!: any
+  // @Input() tournament!: any
+  tournament!: any
+  //@Input() justCreated!: boolean
   @ViewChildren('P') groupPElementRefs!:QueryList<ElementRef>;
   @ViewChildren('PAudio') groupPAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('C') groupCElementRefs!:QueryList<ElementRef>;
@@ -27,20 +34,54 @@ export class GroupsComponent {
   playersInOrderOfAppearance: ElementRef[] = []
   audioInOrderOfAppearance: ElementRef[] = []
   announceFinished: boolean = false
+  showPlayerName: boolean[] = [false]
 
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private renderer: Renderer2) {}
 
   ngOnInit(): void{
-    this.route.queryParams.subscribe(params => {
-      this.receivedData = JSON.parse(params['data']);
-      //this.game = JSON.parse(params['game'])
-      //this.numberOfPlayers = params['numberOfPlayers']
-    });
+    this.tournamentService.tournament$.subscribe(data => {
+      this.tournament = data
+     console.log(this.tournament)
+     this.orderPlayersForAnnouncement()
+    })
+    this.tournamentService.getTournament(this.tournamentId)
 
   }
 
-  ngAfterViewInit(): void {
+  // ngOnChanges() {
+  // }
+
+  ngAfterContentInit(){
+    let index = 0;
+    let showNextElement = () => {
+      //this.showPlayerName = false
+      if (index < this.playersInOrderOfAppearance.length) {
+        const element = this.playersInOrderOfAppearance[index]
+        const elementAudio = this.audioInOrderOfAppearance[index]
+        if (element) {
+          console.log(element.nativeElement.textContent);
+          //element.nativeElement.style.display = "block"
+          //element.nativeElement.style.color = "black"
+          this.showPlayerName[index] = true
+          //this.renderer.setStyle(element.nativeElement, 'display', 'block');
+          //if(this.justCreated){
+            elementAudio.nativeElement.autoplay = 'true'
+            elementAudio.nativeElement.play()
+          //}
+        }
+  
+        index++;
+        setTimeout(showNextElement, 1500);
+      }
+      else{
+        this.announceFinished = true
+      }
+    };
+    setTimeout(showNextElement, 1500); 
+  }
+
+  orderPlayersForAnnouncement() : void {
       console.log(this.groupPElementRefs.toArray());
       for (let i = 0; i < this.groupPElementRefs.toArray().length; i++){
         this.playersInOrderOfAppearance.push(this.groupPElementRefs.toArray()[i])
@@ -59,28 +100,12 @@ export class GroupsComponent {
           this.audioInOrderOfAppearance.push(this.groupSAudioElementRefs.toArray()[i])
         }
       }
-
-      let index = 0;
-      const showNextElement = () => {
-        if (index < this.playersInOrderOfAppearance.length) {
-          const element = this.playersInOrderOfAppearance[index];
-          const elementAudio = this.audioInOrderOfAppearance[index]
-          if (element) {
-            console.log(element.nativeElement.textContent);
-            element.nativeElement.style.display = 'block';
-            elementAudio.nativeElement.autoplay = 'true'
-            elementAudio.nativeElement.play()
-          }
-
-          index++;
-          setTimeout(showNextElement, 50);
-        }
-        else{
-          this.announceFinished = true
-        }
-      };
-      setTimeout(showNextElement, 50); 
+      console.log(this.playersInOrderOfAppearance)
+      console.log(this.audioInOrderOfAppearance)
   }
+
+
+
   getAudioUrl(nameAudioFile: string) {
     if(nameAudioFile){
       return `http://localhost:5180/api/Players/Audio/${nameAudioFile}`

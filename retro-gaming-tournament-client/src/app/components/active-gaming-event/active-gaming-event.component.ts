@@ -16,6 +16,7 @@ export class ActiveGamingEventComponent {
   gamingEvent: GamingEvent | undefined
   activeTournaments: Tournament[] = []
   inactiveTournaments: Tournament[] = []
+  justCreated: boolean = false
 
   constructor(private tournamentService: TournamentService, private router: Router, private activatedRoute : ActivatedRoute, private gamingEventService: GamingEventService) { }
 

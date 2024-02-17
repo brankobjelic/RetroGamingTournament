@@ -42,6 +42,7 @@ export class CreateTournamentComponent {
   createTournamentForm: FormGroup = new FormGroup({
     game: new FormControl(),
   })
+  tournament!: any
 
 
 
@@ -90,8 +91,10 @@ export class CreateTournamentComponent {
     this.tournamentToCreate = new CreateTournament(this.gamingEvent!.id, this.createTournamentForm.get('game')!.value, this.tournamentPlayersIds)
     console.log(this.tournamentToCreate)
     this.tournamentService.createTournament(this.tournamentToCreate).subscribe(resp => {
+      this.tournamentPlayersIds = []
       console.log(resp)
-      this.router.navigate(['/groups'], { queryParams: { data: JSON.stringify(resp)}});
+      this.tournament = resp
+      this.router.navigate(['/tournaments/', this.tournament.id]);
     })
     //this.tournamentPlayersIds = []
     // console.log(this.tournamentPlayers)

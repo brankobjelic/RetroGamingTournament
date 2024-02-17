@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Subject, Observable, map, tap } from 'rxjs';
 import { Player } from '../models/player.model';
 import { Tournament } from '../models/tournament.model';
 import { CreateTournament } from '../models/create-tournament.model';
@@ -14,6 +14,9 @@ export class TournamentService {
   tournaments: Tournament[] = []
   playerIds: number[] = []
   player!: Player
+  tournament!: any
+  private tournamentSubject = new Subject<any>;
+  tournament$: Observable<any> = this.tournamentSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -41,5 +44,19 @@ export class TournamentService {
         return this.tournaments
       })
     )
+  }
+
+  // getTournament(id: number) : Observable<any>
+  // {
+  //   let url = 'http://localhost:5180/api/Tournaments/?id=' + id
+  //   this.tournament = this.http.get<Tournament>(url, {responseType:'json'})
+  //     return this.tournament
+  // }
+  getTournament(id: number)
+  {
+    let url = 'http://localhost:5180/api/Tournaments/?id=' + id
+    this.http.get<any>(url, {responseType:'json'}).subscribe(data => {
+      this.tournamentSubject.next(data)
+    })
   }
 }
