@@ -1,1 +1,7 @@
-<p>tournaments works!</p>
+<div style="margin-top: 50px; text-align: center;">
+    <h1 *ngIf="tournament">{{tournament.gameName}}</h1>
+    <app-groups [tournamentId]="tournamentId"></app-groups>
+    <h2>Rezultati</h2>
+    <app-group-results-form *ngFor="let group of tournament.groups" 
+    [group]="group" class="resultTable"></app-group-results-form>
+</div>

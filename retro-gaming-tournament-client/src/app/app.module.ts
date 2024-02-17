@@ -15,6 +15,7 @@ import { GroupTypeAScoresComponent } from '../ResultForms/form8a/form8a.componen
 import { GamingEventsComponent } from './components/gaming-events/gaming-events.component';
 import { CreateGamingEventComponent } from './components/create-gaming-event/create-gaming-event.component';
 import { ActiveGamingEventComponent } from './components/active-gaming-event/active-gaming-event.component';
+import { GroupResultsFormComponent } from './components/ResultForms/group-results-form/group-results-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ActiveGamingEventComponent } from './components/active-gaming-event/act
     GroupTypeAScoresComponent,
     GamingEventsComponent,
     CreateGamingEventComponent,
-    ActiveGamingEventComponent,  
+    ActiveGamingEventComponent,
+    GroupResultsFormComponent,  
   ],
   imports: [
     BrowserModule,

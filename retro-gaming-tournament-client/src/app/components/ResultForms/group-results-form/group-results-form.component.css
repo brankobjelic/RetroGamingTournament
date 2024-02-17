@@ -1,0 +1,30 @@
+.resultTable {
+    min-width: 200px;
+}
+
+.thP {
+    color: white;
+    background-color: blue;
+    width: 15px;
+}
+
+.thC {
+    color: white;
+    background-color: red;
+    width: 15px;
+}
+
+.thZ {
+    color: white;
+    background-color: green;
+    width: 15px;
+}
+
+.thS {
+    color: white;
+    background-color: gray;
+    width: 15px;
+}
+input {
+    width: 30px;
+}

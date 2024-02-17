@@ -1,0 +1,14 @@
+<div *ngFor="let match of group.matches">
+    <table class="resultTable">
+        <tr>
+            <th class="th{{group.name}}">{{group.name}}{{getSerial(match.p1Id, group.players)}}</th>
+            <td>{{getName(match.p1Id, group.players)}}</td>
+            <input type="number">
+        </tr>
+        <tr>
+            <th class="th{{group.name}}">{{group.name}}{{getSerial(match.p2Id, group.players)}}</th>
+            <td>{{getName(match.p2Id, group.players)}}</td>
+            <input type="number">
+        </tr>
+    </table>
+</div>
