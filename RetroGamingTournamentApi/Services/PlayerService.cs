@@ -15,7 +15,7 @@ namespace RetroGamingTournament.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public Task<PlayerGetDetailsResponseDTO> CreateAsync(PlayerCreateRequestDTO book)
+        public Task<PlayerGetDetailsResponseDTO> CreateAsync(PlayerCreateRequestDTO player)
         {
             throw new NotImplementedException();
         }

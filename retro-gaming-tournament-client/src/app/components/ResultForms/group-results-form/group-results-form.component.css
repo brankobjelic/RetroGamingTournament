@@ -25,6 +25,14 @@
     background-color: gray;
     width: 15px;
 }
+
 input {
-    width: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    text-align: right;
+}
+.tdInput {
+    padding: 0;
 }
