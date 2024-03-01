@@ -55,7 +55,9 @@ namespace RetroGamingTournament.Repositories
 
         public async Task<Tournament> Get(int id)
         {
-            return await _context.Tournaments.Where(x => x.Id == id).Include(x => x.Game).Include(x => x.Event).Include(x => x.Stages).Include(x => x.Players).Include(x => x.Groups).ThenInclude(g => g.Players).Include(x => x.Groups).ThenInclude(g => g.Matches).FirstAsync();
+            Tournament tournament = await _context.Tournaments.Where(x => x.Id == id).Include(x => x.Game).Include(x => x.Event).Include(x => x.Stages).Include(x => x.Players).Include(x => x.Groups).ThenInclude(g => g.Players).Include(x => x.Groups).ThenInclude(g => g.Matches).FirstAsync();
+            //return await _context.Tournaments.Where(x => x.Id == id).Include(x => x.Game).Include(x => x.Event).Include(x => x.Stages).Include(x => x.Players).Include(x => x.Groups).ThenInclude(g => g.Players).Include(x => x.Groups).ThenInclude(g => g.Matches).FirstAsync();
+            return tournament;
         }
 
         public Task<IEnumerable<Tournament>> GetAll()

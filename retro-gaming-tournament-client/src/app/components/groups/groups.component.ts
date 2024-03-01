@@ -1,8 +1,6 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren, Input, Renderer2 } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren, Input, Renderer2, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../models/game.model';
-import { Tournament } from 'src/app/models/tournament.model';
-import { Observable } from 'rxjs';
 import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
@@ -12,15 +10,11 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class GroupsComponent {
 
-  //receivedData: any;
   game!: Game;
   numberOfPlayers!: number
 
-  //@Input() receivedData: any
   @Input() tournamentId!: any
-  // @Input() tournament!: any
   tournament!: any
-  //@Input() justCreated!: boolean
   @ViewChildren('P') groupPElementRefs!:QueryList<ElementRef>;
   @ViewChildren('PAudio') groupPAudioElementRefs!:QueryList<ElementRef>;
   @ViewChildren('C') groupCElementRefs!:QueryList<ElementRef>;
@@ -33,7 +27,7 @@ export class GroupsComponent {
   numberOfPlayersInGroup: number[] = []
   playersInOrderOfAppearance: ElementRef[] = []
   audioInOrderOfAppearance: ElementRef[] = []
-  announceFinished: boolean = false
+  @Output() onAnnounceFinished = new EventEmitter<boolean>();
   showPlayerName: boolean[] = [false]
 
 
@@ -49,33 +43,24 @@ export class GroupsComponent {
 
   }
 
-  // ngOnChanges() {
-  // }
-
   ngAfterContentInit(){
     let index = 0;
     let showNextElement = () => {
-      //this.showPlayerName = false
       if (index < this.playersInOrderOfAppearance.length) {
         const element = this.playersInOrderOfAppearance[index]
         const elementAudio = this.audioInOrderOfAppearance[index]
         if (element) {
           console.log(element.nativeElement.textContent);
-          //element.nativeElement.style.display = "block"
-          //element.nativeElement.style.color = "black"
           this.showPlayerName[index] = true
-          //this.renderer.setStyle(element.nativeElement, 'display', 'block');
-          //if(this.justCreated){
             elementAudio.nativeElement.autoplay = 'true'
             elementAudio.nativeElement.play()
-          //}
         }
   
         index++;
         setTimeout(showNextElement, 1500);
       }
       else{
-        this.announceFinished = true
+        this.onAnnounceFinished.emit(true)
       }
     };
     setTimeout(showNextElement, 1500); 

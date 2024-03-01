@@ -111,7 +111,7 @@ namespace RetroGamingTournament.Services
                 default:
                     throw new ArgumentException();
             }
-            var groupP = (shuffledPlayers.Take(P.NumberOfGroupContestants));
+            var groupP = shuffledPlayers.Take(P.NumberOfGroupContestants);
             List<int> groupPPlayerIds = new List<int>();
             foreach (var p in groupP)
             {
@@ -122,7 +122,7 @@ namespace RetroGamingTournament.Services
                 P.Players.Add(await _playerRepository.Get(p));
             }
 
-            var groupC = (shuffledPlayers.Skip(P.NumberOfGroupContestants).Take(C.NumberOfGroupContestants));
+            var groupC = shuffledPlayers.Skip(P.NumberOfGroupContestants).Take(C.NumberOfGroupContestants);
             List<int> groupCPlayerIds = new List<int>();
             foreach (var c in groupC)
             {
@@ -137,7 +137,7 @@ namespace RetroGamingTournament.Services
                 List<int> groupSPlayerIds = new List<int>();
             if (Z.NumberOfGroupContestants > 0)
             {
-                var groupZ = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants).Take(Z.NumberOfGroupContestants));
+                var groupZ = shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants).Take(Z.NumberOfGroupContestants);
                 foreach (var z in groupZ)
                 {
                     groupZPlayerIds.Add(z);
@@ -149,7 +149,7 @@ namespace RetroGamingTournament.Services
             }
             if (S.NumberOfGroupContestants > 0)
             {
-                var groupS = (shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants + Z.NumberOfGroupContestants).Take(S.NumberOfGroupContestants));
+                var groupS = shuffledPlayers.Skip(P.NumberOfGroupContestants + C.NumberOfGroupContestants + Z.NumberOfGroupContestants).Take(S.NumberOfGroupContestants);
                 foreach (var s in groupS)
                 {
                     groupSPlayerIds.Add(s);
